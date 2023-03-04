@@ -4,6 +4,7 @@
 
 `<insert database schema design here>`
 
+
 ## API Documentation
 
 ## USER AUTHENTICATION/AUTHORIZATION
@@ -51,11 +52,11 @@ Returns the information about the current user that is logged in.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /api/session
   * Body: none
 
-* Successful Response when there is a logged in user
+* Successful Response
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
@@ -71,18 +72,7 @@ Returns the information about the current user that is logged in.
         "username": "JohnSmith"
       }
     }
-    ```
 
-* Successful Response when there is no logged in user
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "user": null
-    }
     ```
 
 ### Log In a User
@@ -92,8 +82,8 @@ information.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /api/session
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -118,8 +108,7 @@ information.
         "firstName": "John",
         "lastName": "Smith",
         "email": "john.smith@gmail.com",
-        "username": "JohnSmith",
-        "token": ""
+        "username": "JohnSmith"
       }
     }
     ```
@@ -147,10 +136,10 @@ information.
     {
       "message": "Validation error",
       "statusCode": 400,
-      "errors": [
-        "Email or username is required",
-        "Password is required"
-      ]
+      "errors": {
+        "credential": "Email or username is required",
+        "password": "Password is required"
+      }
     }
     ```
 
@@ -161,8 +150,8 @@ user's information.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /api/users
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -185,14 +174,12 @@ user's information.
 
     ```json
     {
-      "user": {
-        "id": 1,
-        "firstName": "John",
-        "lastName": "Smith",
-        "email": "john.smith@gmail.com",
-        "username": "JohnSmith",
-        "token": ""
-      }
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Smith",
+      "email": "john.smith@gmail.com",
+      "username": "JohnSmith",
+      "token": ""
     }
     ```
 
@@ -206,9 +193,9 @@ user's information.
     {
       "message": "User already exists",
       "statusCode": 403,
-      "errors": [
-        "User with that email already exists"
-      ]
+      "errors": {
+        "email": "User with that email already exists"
+      }
     }
     ```
 
@@ -222,9 +209,9 @@ user's information.
     {
       "message": "User already exists",
       "statusCode": 403,
-      "errors": [
-        "User with that username already exists"
-      ]
+      "errors": {
+        "username": "User with that username already exists"
+      }
     }
     ```
 
@@ -238,12 +225,12 @@ user's information.
     {
       "message": "Validation error",
       "statusCode": 400,
-      "errors": [
-        "Invalid email",
-        "Username is required",
-        "First Name is required",
-        "Last Name is required"
-      ]
+      "errors": {
+        "email": "Invalid email",
+        "username": "Username is required",
+        "firstName": "First Name is required",
+        "lastName": "Last Name is required"
+      }
     }
     ```
 
@@ -255,8 +242,8 @@ Returns all the spots.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /api/spots
   * Body: none
 
 * Successful Response
@@ -295,8 +282,8 @@ Returns all the spots owned (created) by the current user.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /api/spots/current
   * Body: none
 
 * Successful Response
@@ -335,8 +322,8 @@ Returns the details of a spot specified by its id.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /api/spots/:spotId
   * Body: none
 
 * Successful Response
@@ -401,8 +388,8 @@ Creates and returns a new spot.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /api/spots
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -455,17 +442,17 @@ Creates and returns a new spot.
     {
       "message": "Validation Error",
       "statusCode": 400,
-      "errors": [
-        "Street address is required",
-        "City is required",
-        "State is required",
-        "Country is required",
-        "Latitude is not valid",
-        "Longitude is not valid",
-        "Name must be less than 50 characters",
-        "Description is required",
-        "Price per day is required"
-      ]
+      "errors": {
+        "address": "Street address is required",
+        "city": "City is required",
+        "state": "State is required",
+        "country": "Country is required",
+        "lat": "Latitude is not valid",
+        "lng": "Longitude is not valid",
+        "name": "Name must be less than 50 characters",
+        "description": "Description is required",
+        "price": "Price per day is required"
+      }
     }
     ```
 
@@ -476,8 +463,8 @@ Create and return a new image for a spot specified by id.
 * Require Authentication: true
 * Require proper authorization: Spot must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /api/spots/:spotId/images
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -523,8 +510,8 @@ Updates and returns an existing spot.
 * Require Authentication: true
 * Require proper authorization: Spot must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: PUT
+  * URL: /api/spots/:spotId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -577,17 +564,17 @@ Updates and returns an existing spot.
     {
       "message": "Validation Error",
       "statusCode": 400,
-      "errors": [
-        "Street address is required",
-        "City is required",
-        "State is required",
-        "Country is required",
-        "Latitude is not valid",
-        "Longitude is not valid",
-        "Name must be less than 50 characters",
-        "Description is required",
-        "Price per day is required"
-      ]
+      "errors": {
+        "address": "Street address is required",
+        "city": "City is required",
+        "state": "State is required",
+        "country": "Country is required",
+        "lat": "Latitude is not valid",
+        "lng": "Longitude is not valid",
+        "name": "Name must be less than 50 characters",
+        "description": "Description is required",
+        "price": "Price per day is required"
+      }
     }
     ```
 
@@ -611,8 +598,8 @@ Deletes an existing spot.
 * Require Authentication: true
 * Require proper authorization: Spot must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: DELETE
+  * URL: /api/spots/:spotId
   * Body: none
 
 * Successful Response
@@ -649,8 +636,8 @@ Returns all the reviews written by the current user.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /api/reviews/current
   * Body: none
 
 * Successful Response
@@ -705,8 +692,8 @@ Returns all the reviews that belong to a spot specified by id.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /api/spots/:spotId/reviews
   * Body: none
 
 * Successful Response
@@ -761,8 +748,8 @@ Create and return a new review for a spot specified by id.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /api/spots/:spotId/reviews
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -802,10 +789,10 @@ Create and return a new review for a spot specified by id.
     {
       "message": "Validation error",
       "statusCode": 400,
-      "errors": [
-        "Review text is required",
-        "Stars must be an integer from 1 to 5",
-      ]
+      "errors": {
+        "review": "Review text is required",
+        "stars": "Stars must be an integer from 1 to 5",
+      }
     }
     ```
 
@@ -842,8 +829,8 @@ Create and return a new image for a review specified by id.
 * Require Authentication: true
 * Require proper authorization: Review must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /api/reviews/:reviewId/images
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -901,8 +888,8 @@ Update and return an existing review.
 * Require Authentication: true
 * Require proper authorization: Review must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: PUT
+  * URL: /api/reviews/:reviewId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -942,10 +929,10 @@ Update and return an existing review.
     {
       "message": "Validation error",
       "statusCode": 400,
-      "errors": [
-        "Review text is required",
-        "Stars must be an integer from 1 to 5",
-      ]
+      "errors": {
+        "review": "Review text is required",
+        "stars": "Stars must be an integer from 1 to 5",
+      }
     }
     ```
 
@@ -969,8 +956,8 @@ Delete an existing review.
 * Require Authentication: true
 * Require proper authorization: Review must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: DELETE
+  * URL: /api/reviews/:reviewId
   * Body: none
 
 * Successful Response
@@ -1007,8 +994,8 @@ Return all the bookings that the current user has made.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /api/bookings/current
   * Body: none
 
 * Successful Response
@@ -1052,8 +1039,8 @@ Return all the bookings for a spot specified by id.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /api/spots/:spotId/bookings
   * Body: none
 
 * Successful Response: If you ARE NOT the owner of the spot.
@@ -1121,8 +1108,8 @@ Create and return a new booking from a spot specified by id.
 * Require Authentication: true
 * Require proper authorization: Spot must NOT belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /api/spots/:spotId/bookings
   * Body:
 
     ```json
@@ -1160,9 +1147,9 @@ Create and return a new booking from a spot specified by id.
     {
       "message": "Validation error",
       "statusCode": 400,
-      "errors": [
-        "endDate cannot be on or before startDate"
-      ]
+      "errors": {
+        "endDate": "endDate cannot be on or before startDate"
+      }
     }
     ```
 
@@ -1189,10 +1176,10 @@ Create and return a new booking from a spot specified by id.
     {
       "message": "Sorry, this spot is already booked for the specified dates",
       "statusCode": 403,
-      "errors": [
-        "Start date conflicts with an existing booking",
-        "End date conflicts with an existing booking"
-      ]
+      "errors": {
+        "startDate": "Start date conflicts with an existing booking",
+        "endDate": "End date conflicts with an existing booking"
+      }
     }
     ```
 
@@ -1203,8 +1190,8 @@ Update and return an existing booking.
 * Require Authentication: true
 * Require proper authorization: Booking must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: PUT
+  * URL: /api/bookings/:bookingId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1244,9 +1231,9 @@ Update and return an existing booking.
     {
       "message": "Validation error",
       "statusCode": 400,
-      "errors": [
-        "endDate cannot come before startDate"
-      ]
+      "errors": {
+        "endDate": "endDate cannot come before startDate"
+      }
     }
     ```
 
@@ -1286,10 +1273,10 @@ Update and return an existing booking.
     {
       "message": "Sorry, this spot is already booked for the specified dates",
       "statusCode": 403,
-      "errors": [
-        "Start date conflicts with an existing booking",
-        "End date conflicts with an existing booking"
-      ]
+      "errors": {
+        "startDate": "Start date conflicts with an existing booking",
+        "endDate": "End date conflicts with an existing booking"
+      }
     }
     ```
 
@@ -1301,8 +1288,8 @@ Delete an existing booking.
 * Require proper authorization: Booking must belong to the current user or the
   Spot must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: DELETE
+  * URL: /api/bookings/:bookingId
   * Body: none
 
 * Successful Response
@@ -1353,8 +1340,8 @@ Delete an existing image for a Spot.
 * Require Authentication: true
 * Require proper authorization: Spot must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: DELETE
+  * URL: /api/spot-images/:imageId
   * Body: none
 
 * Successful Response
@@ -1390,8 +1377,8 @@ Delete an existing image for a Review.
 * Require Authentication: true
 * Require proper authorization: Review must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: DELETE
+  * URL: /api/review-images/:imageId
   * Body: none
 
 * Successful Response
@@ -1426,11 +1413,11 @@ Return spots filtered by query parameters.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /api/spots
   * Query Parameters
-    * page: integer, minimum: 0, maximum: 10, default: 0
-    * size: integer, minimum: 0, maximum: 20, default: 20
+    * page: integer, minimum: 1, maximum: 10, default: 1
+    * size: integer, minimum: 1, maximum: 20, default: 20
     * minLat: decimal, optional
     * maxLat: decimal, optional
     * minLng: decimal, optional
@@ -1462,6 +1449,7 @@ Return spots filtered by query parameters.
           "price": 123,
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
+          "avgRating": 4.5,
           "previewImage": "image url"
         }
       ],
@@ -1480,15 +1468,15 @@ Return spots filtered by query parameters.
     {
       "message": "Validation Error",
       "statusCode": 400,
-      "errors": [
-        "Page must be greater than or equal to 0",
-        "Size must be greater than or equal to 0",
-        "Maximum latitude is invalid",
-        "Minimum latitude is invalid",
-        "Maximum longitude is invalid",
-        "Minimum longitude is invalid",
-        "Maximum price must be greater than or equal to 0",
-        "Minimum price must be greater than or equal to 0"
-      ]
+      "errors": {
+        "page": "Page must be greater than or equal to 1",
+        "size": "Size must be greater than or equal to 1",
+        "maxLat": "Maximum latitude is invalid",
+        "minLat": "Minimum latitude is invalid",
+        "minLng": "Maximum longitude is invalid",
+        "maxLng": "Minimum longitude is invalid",
+        "minPrice": "Maximum price must be greater than or equal to 0",
+        "maxPrice": "Minimum price must be greater than or equal to 0"
+      }
     }
     ```
