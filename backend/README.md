@@ -2,8 +2,7 @@
 
 ## Database Schema Design
 
-`<insert database schema design here>`
-
+![database schema](../Schema.png)
 
 ## API Documentation
 
