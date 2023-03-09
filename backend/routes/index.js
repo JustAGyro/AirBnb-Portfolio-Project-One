@@ -1,4 +1,5 @@
 // backend/routes/index.js
+const { json } = require('express');
 const express = require('express');
 const router = express.Router();
 const apiRouter = require('./api');
