@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class SpotImage extends Model {
     /**
@@ -10,16 +8,30 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      SpotImage.belongsTo(models.Spot, {
+        foreignKey: 'spotId',
+      });
     }
   }
-  SpotImage.init({
-    spotId: DataTypes.INTEGER,
-    url: DataTypes.STRING,
-    preview: DataTypes.BOOLEAN
-  }, {
-    sequelize,
-    modelName: 'SpotImage',
-  });
+  SpotImage.init(
+    {
+      spotId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      url: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      preview: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+    },
+    {
+      sequelize,
+      modelName: 'SpotImage',
+    }
+  );
   return SpotImage;
 };
