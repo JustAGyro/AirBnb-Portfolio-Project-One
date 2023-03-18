@@ -24,17 +24,37 @@ module.exports = {
           description: 'Place where web developers are created',
           price: 123,
         },
+        {
+          ownerId: 2,
+          address: '456 Gaming Drive',
+          city: 'Los Angeles',
+          state: 'California',
+          country: 'United States of America',
+          lat: 40.7645358,
+          lng: -152.4730327,
+          name: 'Riot Games',
+          description: 'Pogchamp',
+          price: 250,
+        },
+        {
+          ownerId: 3,
+          address: '789 Gaming Drive',
+          city: 'San Francisco',
+          state: 'California',
+          country: 'United States of America',
+          lat: 57.7645358,
+          lng: -112.4730327,
+          name: 'Blizzard Studios',
+          description: 'Wow is best MMO :)',
+          price: 500,
+        },
       ],
       {}
     );
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    options.tableName = 'Spots';
+    return queryInterface.bulkDelete( options,{},{});
   },
 };
