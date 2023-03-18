@@ -13,20 +13,20 @@ module.exports = {
       options,
       [
         {
-          spotId: 1,
-          userId: 1,
+          spot: 'App Academy',
+          user: 'Demo-lition',
           review: 'This place is great!',
           stars: 5,
         },
         {
-          spotId: 2,
-          userId: 2,
+          spot: 'Riot Games',
+          user: 'FakeUser1',
           review: 'This place is cool!',
           stars: 5,
         },
         {
-          spotId: 3,
-          userId: 3,
+          spot: 'Blizzard Studios',
+          user: 'FakeUser2',
           review: 'This place is perfect!',
           stars: 5,
         },

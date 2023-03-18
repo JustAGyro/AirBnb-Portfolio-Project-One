@@ -13,20 +13,20 @@ module.exports = {
       options,
       [
         {
-          spotId: 1,
-          userId: 1,
+          spot: 'App Academy',
+          user: 'Demo-lition',
           startDate: '2022-01-01',
           endDate: '2022-01-02',
         },
         {
-          spotId: 2,
-          userId: 2,
+          spot: 'Riot Games',
+          user: 'FakeUser1',
           startDate: '2022-02-01',
           endDate: '2022-02-02',
         },
         {
-          spotId: 3,
-          userId: 3,
+          spot: 'Blizzard Studios',
+          user: 'FakeUser2',
           startDate: '2022-03-01',
           endDate: '2022-03-02',
         },
