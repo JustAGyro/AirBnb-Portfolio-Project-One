@@ -51,7 +51,7 @@ router.get('/', async (req, res) => {
         attributes: [],
       },
     ],
-    group: ['Spot.id'],
+    group: ['Spot.id', 'SpotImages.url'],
   });
 
   res.json(spots);
