@@ -37,15 +37,15 @@ module.exports = {
           url: 'image.url',
         },
         {
-          reviewId: 7,
+          reviewId: 4,
           url: 'image.url',
         },
         {
-          reviewId: 8,
+          reviewId: 3,
           url: 'image.url',
         },
         {
-          reviewId: 8,
+          reviewId: 2,
           url: 'image.url',
         },
       ],
