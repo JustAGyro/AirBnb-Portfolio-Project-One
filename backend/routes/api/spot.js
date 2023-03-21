@@ -122,7 +122,6 @@ router.get('/:spotId', async (req, res) => {
 
 //Edit a spot by spotId
 router.put('/:spotId', async (req, res) => {
-  const inRoute = 'In Route';
   const { spotId } = req.params;
   const { address, city, state, country, lat, lng, name, description, price } =
     req.body;
@@ -142,7 +141,58 @@ router.put('/:spotId', async (req, res) => {
   spot.description = description;
   spot.price = price;
 
+  await spot.save();
+
   res.json(spot);
+});
+
+//Create a review for a spot
+router.post('/:spotId/reviews', async (req, res) => {
+  const reviewSpotId = req.params.spotId;
+  const { review, stars } = req.body;
+  const currentUserId = req.user.id;
+
+  //If spotId doesnt exist -- error
+  const spot = await Spot.findByPk(reviewSpotId);
+  if (!spot) {
+    return res.status(404).json({ message: 'Spot not found', status: '404' });
+  }
+
+  //If spotId has a review by the current user -- error
+  const findReview = await Review.findOne({
+    where: { userId: currentUserId, spotId: reviewSpotId },
+  });
+
+  if (findReview) {
+    return res.status(403).json({
+      message: 'Review for spot already found for this user',
+      status: '403',
+    });
+  }
+
+  const newReview = await Review.create({
+    review,
+    stars,
+    UserId: currentUserId,
+    SpotId: reviewSpotId,
+  });
+  res.json(newReview);
+});
+
+//Get all reviews by spotId
+router.get('/:spotId/reviews', async (req, res) => {
+  const reviewSpotId = req.params.spotId;
+  console.log('-------------------debug-------------------');
+  console.log(reviewSpotId);
+  const findSpot = await Review.findOne({
+    where: { SpotId: reviewSpotId },
+    include: [{ model: ReviewImage }, { model: User }],
+  });
+
+  if (!findSpot) {
+    return res.status(404).json({ message: 'Spot not found', status: '404' });
+  }
+  res.json(findSpot);
 });
 
 module.exports = router;

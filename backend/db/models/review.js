@@ -8,8 +8,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Review.hasMany(models.ReviewImage, { foreignKey: 'id' });
-      Review.belongsTo(models.Spot, { foreignKey: 'id' });
+      Review.hasMany(models.ReviewImage, { foreignKey: 'reviewId' });
+      Review.belongsTo(models.Spot, { foreignKey: 'spotId' });
+      Review.belongsTo(models.User, { foreignKey: 'userId' });
     }
   }
   Review.init(
@@ -21,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
 
         validate: {
-          len: [1, 5],
+          min: 1,
+          max: 5,
         },
       },
     },
