@@ -5,8 +5,8 @@ const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     toSafeObject() {
-      const { id, username, email } = this; // context will be the User instance
-      return { id, username, email };
+      const { id, username, firstName, lastName, email } = this; // context will be the User instance
+      return { id, username, firstName, lastName, email };
     }
 
     validatePassword(password) {
@@ -47,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       User.hasMany(models.Spot, { foreignKey: 'ownerId' });
       User.hasMany(models.Review, { foreignKey: 'userId' });
-      User.hasMany(models.Booking, {foreignKey: 'userId'})
+      User.hasMany(models.Booking, { foreignKey: 'userId' });
     }
   }
 
