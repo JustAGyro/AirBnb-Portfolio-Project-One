@@ -8,68 +8,83 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    options.tableName = 'ReviewImages';
+    options.tableName = 'SpotImages';
     return queryInterface.bulkInsert(
       options,
       [
         {
-          reviewId: 1,
+          spotId: 1,
+          preview: true,
           url: 'image.url',
         },
         {
-          reviewId: 2,
+          spotId: 2,
+          preview: true,
           url: 'image.url',
         },
         {
-          reviewId: 3,
+          spotId: 3,
+          preview: true,
           url: 'image.url',
         },
         {
-          reviewId: 4,
+          spotId: 4,
+          preview: true,
           url: 'image.url',
         },
         {
-          reviewId: 5,
+          spotId: 5,
+          preview: true,
           url: 'image.url',
         },
         {
-          reviewId: 6,
+          spotId: 6,
+          preview: true,
           url: 'image.url',
         },
         {
-          reviewId: 7,
+          spotId: 7,
+          preview: true,
           url: 'image.url',
         },
         {
-          reviewId: 8,
+          spotId: 8,
+          preview: true,
           url: 'image.url',
         },
         {
-          reviewId: 9,
+          spotId: 9,
+          preview: true,
           url: 'image.url',
         },
         {
-          reviewId: 10,
+          spotId: 10,
+          preview: true,
           url: 'image.url',
         },
         {
-          reviewId: 11,
+          spotId: 11,
+          preview: true,
           url: 'image.url',
         },
         {
-          reviewId: 12,
+          spotId: 12,
+          preview: true,
           url: 'image.url',
         },
         {
-          reviewId: 13,
+          spotId: 13,
+          preview: true,
           url: 'image.url',
         },
         {
-          reviewId: 14,
+          spotId: 14,
+          preview: true,
           url: 'image.url',
         },
         {
-          reviewId: 15,
+          spotId: 15,
+          preview: true,
           url: 'image.url',
         },
       ],
@@ -78,7 +93,7 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    options.tableName = 'ReviewImages';
+    options.tableName = 'SpotImages';
     return queryInterface.bulkDelete(options, {}, {});
   },
 };

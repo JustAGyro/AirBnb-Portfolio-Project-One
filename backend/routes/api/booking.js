@@ -40,4 +40,22 @@ router.put('/:bookingId', async (req, res) => {
   res.json(booking);
 });
 
+//Delete a booking based on a bookingId
+router.delete('/:bookingId', async (req, res) => {
+  const inRoute = 'In Route';
+  const bookingId = req.params.bookingId;
+
+  const booking = await Booking.findByPk(bookingId);
+
+  if (!booking) {
+    // If the spot image is not found, return a 404 response
+    return res
+      .status(404)
+      .json({ message: 'Booking not found', status: '404' });
+  }
+
+  await booking.destroy();
+  res.json({ message: 'Booking deleted successfully' });
+});
+
 module.exports = router;

@@ -35,4 +35,21 @@ router.put('/:reviewId', async (req, res) => {
 
   res.json(findReview);
 });
+
+//Delete a review based on a reviewId
+router.delete('/:reviewId', async (req, res) => {
+  const inRoute = 'In Route';
+  const reviewId = req.params.reviewId;
+
+  const review = await Review.findByPk(reviewId);
+
+  if (!review) {
+    // If the spot image is not found, return a 404 response
+    return res.status(404).json({ message: 'Review not found', status: '404' });
+  }
+
+  await review.destroy();
+  res.json({ message: 'Review deleted successfully' });
+});
+
 module.exports = router;

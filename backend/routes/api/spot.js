@@ -290,4 +290,21 @@ router.get('/:spotId/bookings', async (req, res) => {
   }
   res.json(bookings);
 });
+
+//Delete a spot based on a spotId
+router.delete('/:spotId', async (req, res) => {
+  const inRoute = 'In Route';
+  const deleteSpotId = req.params.spotId;
+
+  const spot = await Spot.findByPk(deleteSpotId);
+
+  if (!spot) {
+    // If the spot image is not found, return a 404 response
+    return res.status(404).json({ message: 'Spot not found', status: '404' });
+  }
+
+  await spot.destroy();
+  res.json({ message: 'Spot deleted successfully' });
+});
+
 module.exports = router;
