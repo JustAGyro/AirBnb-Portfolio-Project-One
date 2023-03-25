@@ -10,6 +10,7 @@ const {
 const router = express.Router();
 const Sequelize = require('sequelize');
 const spot = require('../../db/models/spot');
+const { Op } = require('sequelize');
 
 //Get all spots
 router.get('/', async (req, res) => {
@@ -182,8 +183,6 @@ router.post('/:spotId/reviews', async (req, res) => {
 //Get all reviews by spotId
 router.get('/:spotId/reviews', async (req, res) => {
   const reviewSpotId = req.params.spotId;
-  console.log('-------------------debug-------------------');
-  console.log(reviewSpotId);
   const findSpot = await Review.findOne({
     where: { SpotId: reviewSpotId },
     include: [{ model: ReviewImage }, { model: User }],
@@ -195,4 +194,100 @@ router.get('/:spotId/reviews', async (req, res) => {
   res.json(findSpot);
 });
 
+//Create a booking used a spotId
+router.post('/:spotId/bookings', async (req, res) => {
+  const inRoute = 'In Route';
+  const spotId = req.params.spotId;
+  const { startDate, endDate } = req.body;
+  const currentUserId = req.user.id;
+
+  const findSpot = await Spot.findOne({
+    where: { id: spotId },
+  });
+
+  if (!findSpot) {
+    return res.status(404).json({ message: 'Spot not found', status: '404' });
+  }
+
+  if (endDate <= startDate) {
+    return res
+      .status(404)
+      .json({ message: 'End date cannot be before start date', status: '400' });
+  }
+
+  const conflicts = await Booking.findAll({
+    where: {
+      spotId,
+      [Op.or]: [
+        {
+          startDate: {
+            [Op.lte]: endDate,
+          },
+          endDate: {
+            [Op.gte]: endDate,
+          },
+        },
+        {
+          startDate: {
+            [Op.lte]: startDate,
+          },
+          endDate: {
+            [Op.gte]: startDate,
+          },
+        },
+        {
+          startDate: {
+            [Op.gte]: startDate,
+          },
+          endDate: {
+            [Op.lte]: endDate,
+          },
+        },
+      ],
+    },
+  });
+
+  if (conflicts.length > 0) {
+    return res.status(400).json({
+      message: 'Booking conflicts with existing bookings',
+      status: '400',
+    });
+  }
+
+  const newBooking = await Booking.create({
+    spotId: spotId,
+    userId: currentUserId,
+    startDate: startDate,
+    endDate: endDate,
+  });
+
+  res.json(newBooking);
+});
+
+//Get all bookings for a spotId
+router.get('/:spotId/bookings', async (req, res) => {
+  const spotId = req.params.spotId;
+  const currentUserId = req.user.id;
+  const spot = await Spot.findOne({ where: { id: spotId } });
+  //Spot doesnt exist error
+  if (!spot) {
+    return res.status(404).json({ message: 'Spot not found', status: '404' });
+  }
+  const isOwner = spot.ownerId === currentUserId;
+
+  let bookings;
+
+  if (isOwner) {
+    bookings = await Booking.scope('isOwner').findAll({
+      where: { spotId: spotId },
+      include: { model: User, attributes: ['id', 'firstName', 'lastName'] },
+    });
+  }
+  if (!isOwner) {
+    bookings = await Booking.scope('notOwner').findAll({
+      where: { spotId: spotId },
+    });
+  }
+  res.json(bookings);
+});
 module.exports = router;

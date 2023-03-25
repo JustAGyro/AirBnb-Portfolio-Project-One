@@ -1,7 +1,6 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+const { User } = require('./user.js');
 module.exports = (sequelize, DataTypes) => {
   class Booking extends Model {
     /**
@@ -11,16 +10,41 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Booking.belongsTo(models.Spot, { foreignKey: 'spotId' });
+      Booking.belongsTo(models.User, { foreignKey: 'userId' });
     }
   }
-  Booking.init({
-    spotId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER,
-    startDate: DataTypes.DATE,
-    endDate: DataTypes.DATE
-  }, {
-    sequelize,
-    modelName: 'Booking',
-  });
+  Booking.init(
+    {
+      spotId: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
+      startDate: DataTypes.DATE,
+      endDate: DataTypes.DATE,
+    },
+    {
+      sequelize,
+      modelName: 'Booking',
+      defaultScope: {
+        attributes: {},
+      },
+      scopes: {
+        notOwner: {
+          attributes: { exclude: ['id', 'userId', 'createdAt', 'updatedAt'] },
+        },
+        isOwner: {
+          attributes: [
+            'id',
+            'spotId',
+            'userId',
+            'startDate',
+            'endDate',
+            'createdAt',
+            'updatedAt',
+          ],
+          // include: [{ model: User }],
+        },
+      },
+    }
+  );
   return Booking;
 };
