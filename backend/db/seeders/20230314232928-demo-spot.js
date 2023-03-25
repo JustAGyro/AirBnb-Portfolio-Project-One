@@ -49,7 +49,7 @@ module.exports = {
           price: 500,
         },
         {
-          ownerId: 4,
+          ownerId: 1,
           address: '789 Gaming Drive',
           city: 'San Francisco',
           state: 'California',
@@ -61,7 +61,7 @@ module.exports = {
           price: 500,
         },
         {
-          ownerId: 5,
+          ownerId: 2,
           address: '789 Gaming Drive',
           city: 'San Francisco',
           state: 'California',
@@ -73,7 +73,7 @@ module.exports = {
           price: 500,
         },
         {
-          ownerId: 6,
+          ownerId: 3,
           address: '789 Gaming Drive',
           city: 'San Francisco',
           state: 'California',
@@ -85,7 +85,7 @@ module.exports = {
           price: 500,
         },
         {
-          ownerId: 7,
+          ownerId: 1,
           address: '789 Gaming Drive',
           city: 'San Francisco',
           state: 'California',
@@ -97,7 +97,7 @@ module.exports = {
           price: 500,
         },
         {
-          ownerId: 8,
+          ownerId: 2,
           address: '789 Gaming Drive',
           city: 'San Francisco',
           state: 'California',
@@ -109,7 +109,7 @@ module.exports = {
           price: 500,
         },
         {
-          ownerId: 9,
+          ownerId: 3,
           address: '789 Gaming Drive',
           city: 'San Francisco',
           state: 'California',
@@ -121,7 +121,7 @@ module.exports = {
           price: 500,
         },
         {
-          ownerId: 10,
+          ownerId: 1,
           address: '789 Gaming Drive',
           city: 'San Francisco',
           state: 'California',

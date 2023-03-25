@@ -63,27 +63,27 @@ module.exports = {
           url: 'image.url',
         },
         {
-          spotId: 11,
+          spotId: 1,
           preview: true,
           url: 'image.url',
         },
         {
-          spotId: 12,
+          spotId: 2,
           preview: true,
           url: 'image.url',
         },
         {
-          spotId: 13,
+          spotId: 3,
           preview: true,
           url: 'image.url',
         },
         {
-          spotId: 14,
+          spotId: 4,
           preview: true,
           url: 'image.url',
         },
         {
-          spotId: 15,
+          spotId: 5,
           preview: true,
           url: 'image.url',
         },
