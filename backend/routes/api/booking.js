@@ -16,7 +16,7 @@ router.get('/current', async (req, res) => {
   const currentUser = req.user.id;
 
   const findBookings = await Booking.findAll({
-    where: { UserId: currentUser },
+    where: { userId: currentUser },
     include: [{ model: Spot }],
   });
   res.json(findBookings);
