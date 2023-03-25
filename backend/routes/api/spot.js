@@ -179,8 +179,8 @@ router.post('/:spotId/reviews', async (req, res) => {
   const newReview = await Review.create({
     review,
     stars,
-    UserId: currentUserId,
-    SpotId: reviewSpotId,
+    userId: currentUserId,
+    spotId: reviewSpotId,
   });
   res.json(newReview);
 });
