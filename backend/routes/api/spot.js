@@ -239,7 +239,7 @@ router.post('/:spotId/reviews', async (req, res) => {
 router.get('/:spotId/reviews', async (req, res) => {
   const reviewSpotId = req.params.spotId;
   const findSpot = await Review.findOne({
-    where: { SpotId: reviewSpotId },
+    where: { spotId: reviewSpotId },
     include: [
       { model: ReviewImage, attributes: ['id', 'url'] },
       { model: User, attributes: ['id', 'firstName', 'lastName'] },
