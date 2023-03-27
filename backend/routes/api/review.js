@@ -15,8 +15,11 @@ const spot = require('../../db/models/spot');
 router.get('/current', async (req, res) => {
   const currentUser = req.user.id;
 
-  const findReviews = await Review.findAll({ where: { userId: currentUser } });
-  res.json(findReviews);
+  const findReviews = await Review.findAll({
+    where: { userId: currentUser },
+    include: [{ model: Spot }, { model: User }, { model: ReviewImage }],
+  });
+  res.json({ Reviews: findReviews });
 });
 
 //Create a review image for a review
@@ -27,7 +30,9 @@ router.post('/:reviewId/images', async (req, res) => {
   const review = await Review.findByPk(reviewId);
 
   if (!review) {
-    return res.status(404).json({ message: 'Review not found', status: '404' });
+    return res
+      .status(404)
+      .json({ message: 'Review not found', statusCode: 404 });
   }
 
   const newReviewImage = await ReviewImage.create({
@@ -35,7 +40,7 @@ router.post('/:reviewId/images', async (req, res) => {
     reviewId,
   });
 
-  res.json(newReviewImage);
+  res.json({ id: newReviewImage.id, url: url, reviewId: reviewId });
 });
 
 //Edit a review
@@ -44,7 +49,9 @@ router.put('/:reviewId', async (req, res) => {
   const { review, stars } = req.body;
   const findReview = await Review.findByPk(currentReviewId);
   if (!findReview) {
-    return res.status(404).json({ message: 'Review not found', status: '404' });
+    return res
+      .status(404)
+      .json({ message: 'Review not found', statusCode: 404 });
   }
 
   findReview.review = review;
@@ -64,7 +71,9 @@ router.delete('/:reviewId', async (req, res) => {
 
   if (!review) {
     // If the spot image is not found, return a 404 response
-    return res.status(404).json({ message: 'Review not found', status: '404' });
+    return res
+      .status(404)
+      .json({ message: 'Review not found', statusCode: 404 });
   }
 
   await review.destroy();
