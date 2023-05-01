@@ -62,13 +62,6 @@ app.use((err, _req, _res, next) => {
     }
     err.title = 'Validation error';
     err.errors = errors;
-    if (errors.email) {
-      return _res.json({
-        message: 'User already exists',
-        statusCode: 403,
-        errors: errors,
-      });
-    }
   }
   next(err);
 });

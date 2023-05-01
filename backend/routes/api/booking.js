@@ -17,17 +17,9 @@ router.get('/current', async (req, res) => {
 
   const findBookings = await Booking.findAll({
     where: { userId: currentUser },
-    include: [
-      {
-        model: Spot,
-        attributes: {
-          exclude: ['createdAt', 'updatedAt'],
-        },
-        include: [{ model: SpotImage }],
-      },
-    ],
+    include: [{ model: Spot }],
   });
-  res.json({ Bookings: findBookings });
+  res.json(findBookings);
 });
 
 //Edit a booking based on bookingId
@@ -38,7 +30,7 @@ router.put('/:bookingId', async (req, res) => {
   if (!booking) {
     return res
       .status(404)
-      .json({ message: 'Booking not found', statusCode: 404 });
+      .json({ message: 'Booking not found', status: '404' });
   }
   booking.startDate = startDate;
   booking.endDate = endDate;
@@ -59,7 +51,7 @@ router.delete('/:bookingId', async (req, res) => {
     // If the spot image is not found, return a 404 response
     return res
       .status(404)
-      .json({ message: 'Booking not found', statusCode: 404 });
+      .json({ message: 'Booking not found', status: '404' });
   }
 
   await booking.destroy();

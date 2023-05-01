@@ -23,7 +23,7 @@ router.delete('/:reviewImageId', async (req, res) => {
     // If the spot image is not found, return a 404 response
     return res
       .status(404)
-      .json({ message: 'Review image not found', statusCode: 404 });
+      .json({ message: 'Review image not found', status: '404' });
   }
 
   await reviewImage.destroy();

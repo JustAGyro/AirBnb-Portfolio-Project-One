@@ -1,6 +1,5 @@
 // backend/utils/validation.js
 const { validationResult } = require('express-validator');
-const user = require('../db/models/user');
 
 // middleware for formatting errors from express-validator middleware
 // (to customize, see express-validator's documentation)
