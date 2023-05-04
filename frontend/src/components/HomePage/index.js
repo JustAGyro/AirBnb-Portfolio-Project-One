@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import './HomePage.css';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { getSpots } from '../../store/spot';
 
 function HomePage() {
-  const [spots, setSpots] = useState([]);
+  const dispatch = useDispatch();
+  const spots = useSelector((state) => Object.values(state.spots));
 
   useEffect(() => {
-    async function fetchSpots() {
-      try {
-        const response = await fetch('/api/spots');
-        const data = await response.json();
-        setSpots(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchSpots();
-  }, []);
+    dispatch(getSpots());
+  }, [dispatch]);
 
   return (
     <div className="spots-container">
@@ -30,9 +25,7 @@ function HomePage() {
             </div>
             <div className="average-rating">
               <i className="fa fa-star"></i>
-              <div className="spot-card-stars">
-                {spot.average_rating.toFixed(1)}
-              </div>
+              <div className="spot-card-stars">{spot.average_rating}</div>
             </div>
             <div className="spot-card-price">Price: ${spot.price}</div>
           </div>
