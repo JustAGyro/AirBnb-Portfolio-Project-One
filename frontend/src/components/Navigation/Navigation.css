@@ -1,8 +1,13 @@
 ul {
+  list-style-type: none;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   height: 50px;
+}
+
+li:first-child {
+  margin-right: auto; /* Pushes first item to the left */
 }
 
 .cat {
@@ -17,4 +22,31 @@ li:last-child {
 li:last-child button {
   font-size: 1.2rem;
   padding: 0.5rem 1rem;
+}
+
+.create-spot-btn {
+  /* Button styles */
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+  background-color: whitesmoke;
+  border: 2px solid black;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  /* Margin styles */
+  margin-right: 10px; /* Adds 10px margin to the right of the button */
+}
+
+.create-spot-btn:hover {
+  background-color: gray;
+}
+
+.ProfileButton {
+  /* Margin styles */
+  margin-left: 10px; /* Adds 10px margin to the left of the profile button */
 }
