@@ -1,9 +1,11 @@
 const LOAD = 'spot/LOAD';
+const LOAD_ONE = 'spot/LOAD_ONE';
 
 const load = (list) => ({
   type: LOAD,
   list,
 });
+
 export const getSpots = () => async (dispatch) => {
   const response = await fetch('/api/spots');
 

@@ -1,0 +1,30 @@
+.spot-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.spot-name {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.spot-address {
+  margin-bottom: 1rem;
+}
+
+.spot-description {
+  margin-bottom: 1rem;
+}
+
+.spot-location {
+  margin-bottom: 1rem;
+}
+
+.spot-location p {
+  margin: 0;
+}
+
+Link {
+  display: block;
+  margin-top: 1rem;
+}
