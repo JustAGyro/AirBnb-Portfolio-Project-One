@@ -17,18 +17,18 @@ function SpotDetail() {
   }, [dispatch]);
 
   return (
-    <h1>hi</h1>
-    // <div className="spot-container">
-    //   <h1 className="spot-name">{spot.name}</h1>
-    //   <p className="spot-address">
-    //     {spot.address}, {spot.city}, {spot.state}, {spot.country}
-    //   </p>
-    //   <p className="spot-description">{spot.description}</p>
-    //   <div className="spot-location">
-    //     <p>Latitude: {spot.lat}</p>
-    //     <p>Longitude: {spot.lng}</p>
-    //   </div>
-    // </div>
+    // <h1>hi</h1>
+    <div className="spot-container">
+      <h1 className="spot-name">{spot.name}</h1>
+      <p className="spot-address">
+        {spot.address}, {spot.city}, {spot.state}, {spot.country}
+      </p>
+      <p className="spot-description">{spot.description}</p>
+      <div className="spot-location">
+        <p>Latitude: {spot.lat}</p>
+        <p>Longitude: {spot.lng}</p>
+      </div>
+    </div>
   );
 }
 

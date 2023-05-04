@@ -29,7 +29,7 @@ function HomePage() {
             </div>
             <div className="spot-card-price">Price: ${spot.price}</div>
           </div>
-          <Link to={`/spots/${spot.id}`}>
+          <Link to={`/api/spots/${spot.id}`}>
             <h2>{spot.name}</h2>
           </Link>
           <div>{spot.description}</div>
