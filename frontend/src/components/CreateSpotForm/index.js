@@ -8,7 +8,7 @@ const SpotForm = ({ hideForm }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [country, setCountry] = useState('');
-  const [street, setStreet] = useState('');
+  const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [description, setDescription] = useState('');
@@ -21,7 +21,7 @@ const SpotForm = ({ hideForm }) => {
   const [image4, setImage4] = useState('');
 
   const updateCountry = (e) => setCountry(e.target.value);
-  const updateStreet = (e) => setStreet(e.target.value);
+  const updateAddress = (e) => setAddress(e.target.value);
   const updateCity = (e) => setCity(e.target.value);
   const updateState = (e) => setState(e.target.value);
   const updateDescription = (e) => setDescription(e.target.value);
@@ -38,7 +38,7 @@ const SpotForm = ({ hideForm }) => {
 
     const payload = {
       country,
-      street,
+      address,
       city,
       state,
       description,
@@ -87,8 +87,8 @@ const SpotForm = ({ hideForm }) => {
           type="text"
           placeholder="Street Address"
           required
-          value={street}
-          onChange={updateStreet}
+          value={address}
+          onChange={updateAddress}
         />
         <input
           className="city"

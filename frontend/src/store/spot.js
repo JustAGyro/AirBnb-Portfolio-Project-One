@@ -29,20 +29,20 @@ export const getSpots = () => async (dispatch) => {
 };
 
 export const createASpot = (data) => async (dispatch) => {
-  console.log('DID WE GET TO THE CREATE SPOT ROUTE????????');
   console.log(data);
-  console.log('DID WE GET TO THE CREATE SPOT ROUTE????????');
   const token = Cookies.get('XSRF-TOKEN');
-  console.log('TOKEN: ', token);
-  const response = await fetch('/api/spots/new', {
+
+  const response = await fetch('/api/spots/', {
     method: 'post',
     headers: { 'Content-Type': 'application/json', 'XSRF-Token': token },
-    body: data,
+    body: JSON.stringify(data),
   });
 
   console.log('WHAT ABOUT HERE????????????');
+  console.log(response);
 
   if (response.ok) {
+    console.log('Surely we dont get here right? ------------');
     const spot = await response.json();
     dispatch(createSpot(spot));
     return spot;
