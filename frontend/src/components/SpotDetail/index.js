@@ -12,10 +12,6 @@ function SpotDetail() {
   const spot = useSelector((state) => state.spots[spotId]); // populate from Redux store
   console.log(spot);
 
-  useEffect(() => {
-    dispatch(getSpots());
-  }, [dispatch]);
-
   return (
     // <h1>hi</h1>
     <div className="spot-container">

@@ -1,9 +1,22 @@
+import Cookies from 'js-cookie';
+
 const LOAD = 'spot/LOAD';
-const LOAD_ONE = 'spot/LOAD_ONE';
+const CREATE_SPOT = '/spot/CREATE_SPOT';
+const CREATE_IMAGE = '/spot/CREATE_IMAGE';
 
 const load = (list) => ({
   type: LOAD,
   list,
+});
+
+const createSpot = (spot) => ({
+  type: CREATE_SPOT,
+  spot,
+});
+
+const createImage = (image) => ({
+  type: CREATE_IMAGE,
+  image,
 });
 
 export const getSpots = () => async (dispatch) => {
@@ -15,9 +28,45 @@ export const getSpots = () => async (dispatch) => {
   }
 };
 
-const initialState = {
-  list: [],
+export const createASpot = (data) => async (dispatch) => {
+  console.log('DID WE GET TO THE CREATE SPOT ROUTE????????');
+  console.log(data);
+  console.log('DID WE GET TO THE CREATE SPOT ROUTE????????');
+  const token = Cookies.get('XSRF-TOKEN');
+  console.log('TOKEN: ', token);
+  const response = await fetch('/api/spots/new', {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json', 'XSRF-Token': token },
+    body: data,
+  });
+
+  console.log('WHAT ABOUT HERE????????????');
+
+  if (response.ok) {
+    const spot = await response.json();
+    dispatch(createSpot(spot));
+    return spot;
+  }
 };
+
+export const createAnImage = (data, spotId) => async (dispatch) => {
+  console.log('DID WE GET TO THE CREATE IMAGE SPOT ROUTE????????');
+  console.log(data);
+  console.log('DID WE GET TO THE CREATE IMAGE SPOT ROUTE????????');
+  const response = await fetch(`/api/spots/${spotId}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+
+  if (response.ok) {
+    const image = await response.json();
+    dispatch(createImage(image));
+    return image;
+  }
+};
+
+const initialState = {};
 
 const spotReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -27,6 +76,24 @@ const spotReducer = (state = initialState, action) => {
         allSpots[spots.id] = spots;
       });
       return { ...allSpots, ...state };
+    case CREATE_SPOT:
+      if (!state[action.spot.id]) {
+        const newState = {
+          ...state,
+          [action.spot.id]: action.spot,
+        };
+        return newState;
+      }
+      return {
+        ...state,
+        [action.spot.id]: action.spot,
+      };
+    case CREATE_IMAGE:
+      const newState = {
+        ...state,
+        [action.spot.previewImage]: action.image,
+      };
+      return newState;
     default:
       return state;
   }

@@ -19,7 +19,10 @@ function ProfileButton({ user }) {
     if (!showMenu) return;
 
     const closeMenu = (e) => {
+      console.log('INSIDE CLOSEMENU:', ulRef);
+      if (ulRef.current === null) return;
       if (!ulRef.current.contains(e.target)) {
+        console.log('INSIDE CLOSEMENU:', ulRef);
         setShowMenu(false);
       }
     };
