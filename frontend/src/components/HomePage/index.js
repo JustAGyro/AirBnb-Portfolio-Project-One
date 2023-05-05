@@ -16,24 +16,25 @@ function HomePage() {
   return (
     <div className="spots-container">
       {spots.map((spot) => (
-        <div key={spot.id} className="spot-card">
-          <img src="./images/image.jpg" alt={spot.name} />
-          <div className="spot-info">
-            <div className="spot-card-location">
-              <div className="spot-card-city">{spot.city},</div>
-              <div className="spot-card-state">{spot.state}</div>
+        <Link to={`/api/spots/${spot.id}`}>
+          <div key={spot.id} className="spot-card">
+            <img src="./images/image.jpg" alt={spot.name} />
+            <div className="spot-info">
+              <div className="spot-card-location">
+                <div className="spot-card-city-state">
+                  {spot.city}, {spot.state}
+                </div>
+              </div>
+              <div className="average-rating">
+                <i className="fa fa-star"></i>
+                <div className="spot-card-stars">
+                  {spot.average_rating.toFixed(2)}
+                </div>
+              </div>
+              <div className="spot-card-price">${spot.price} night</div>
             </div>
-            <div className="average-rating">
-              <i className="fa fa-star"></i>
-              <div className="spot-card-stars">{spot.average_rating}</div>
-            </div>
-            <div className="spot-card-price">Price: ${spot.price}</div>
           </div>
-          <Link to={`/api/spots/${spot.id}`}>
-            <h2>{spot.name}</h2>
-          </Link>
-          <div>{spot.description}</div>
-        </div>
+        </Link>
       ))}
     </div>
   );

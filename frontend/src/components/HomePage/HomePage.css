@@ -19,40 +19,43 @@
 .spot-card {
   border: 1px solid #ccc;
   padding: 10px;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
 }
 
 .spot-card img {
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
 }
 
 .spot-info {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: space-between;
+  display: grid;
+  grid-template-areas:
+    'location rating'
+    'price    empty';
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 10px;
   padding: 10px 0;
 }
 
 .spot-location {
+  grid-area: location;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: left;
   margin-bottom: 10px;
-}
-
-.city-state {
-  margin: 0;
-  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .average-rating {
+  grid-area: rating;
   display: flex;
-  align-items: center;
+  align-items: top;
+  justify-content: right;
 }
 
 .star-icon {
@@ -65,10 +68,15 @@
 }
 
 .price-label {
+  grid-area: price;
   margin: 0;
   font-weight: bold;
 }
 
 .price {
   margin: 0;
+}
+
+a {
+  text-decoration: none;
 }

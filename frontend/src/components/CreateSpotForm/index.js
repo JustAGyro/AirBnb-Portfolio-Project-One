@@ -4,7 +4,7 @@ import { createASpot } from '../../store/spot';
 import { Redirect, useHistory } from 'react-router-dom';
 import { createAnImage } from '../../store/spot';
 
-const SpotForm = ({ hideForm }) => {
+const SpotForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [country, setCountry] = useState('');
@@ -57,18 +57,16 @@ const SpotForm = ({ hideForm }) => {
     let createdSpot;
     createdSpot = await dispatch(createASpot(payload));
 
-    let createdImages;
-    createdImages = await dispatch(createAnImage(imagePayload, createdSpot.id));
+    // let createdImages;
+    // createdImages = await dispatch(createAnImage(imagePayload, createdSpot.id));
 
     if (createdSpot) {
       history.push(`/spots/${createdSpot.id}`);
-      hideForm();
     }
   };
 
   const handleCancelClick = (e) => {
     e.preventDefault();
-    hideForm();
   };
 
   return (
@@ -150,7 +148,7 @@ const SpotForm = ({ hideForm }) => {
         <input
           type="text"
           placeholder="Image URL"
-          value={updateImage3}
+          value={image3}
           onChange={updateImage3}
         />
         <input

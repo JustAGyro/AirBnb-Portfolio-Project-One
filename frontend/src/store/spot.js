@@ -21,28 +21,25 @@ const createImage = (image) => ({
 
 export const getSpots = () => async (dispatch) => {
   const response = await fetch('/api/spots');
-
   if (response.ok) {
     const list = await response.json();
+    console.log(list);
     dispatch(load(list));
   }
 };
 
 export const createASpot = (data) => async (dispatch) => {
-  console.log(data);
   const token = Cookies.get('XSRF-TOKEN');
-
   const response = await fetch('/api/spots/', {
     method: 'post',
-    headers: { 'Content-Type': 'application/json', 'XSRF-Token': token },
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': token,
+    },
     body: JSON.stringify(data),
   });
 
-  console.log('WHAT ABOUT HERE????????????');
-  console.log(response);
-
   if (response.ok) {
-    console.log('Surely we dont get here right? ------------');
     const spot = await response.json();
     dispatch(createSpot(spot));
     return spot;
@@ -50,12 +47,10 @@ export const createASpot = (data) => async (dispatch) => {
 };
 
 export const createAnImage = (data, spotId) => async (dispatch) => {
-  console.log('DID WE GET TO THE CREATE IMAGE SPOT ROUTE????????');
-  console.log(data);
-  console.log('DID WE GET TO THE CREATE IMAGE SPOT ROUTE????????');
+  const token = Cookies.get('XSRF-TOKEN');
   const response = await fetch(`/api/spots/${spotId}`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': token },
     body: JSON.stringify(data),
   });
 
