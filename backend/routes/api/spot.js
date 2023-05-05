@@ -60,7 +60,7 @@ router.get('/', async (req, res) => {
       where: { spotId: oneSpot.id },
       attributes: ['url'],
     });
-    oneSpot.dataValues.previewImage = imageForSpot[0].url;
+    oneSpot.dataValues.previewImage = [imageForSpot];
   }
 
   res.json(spots);
