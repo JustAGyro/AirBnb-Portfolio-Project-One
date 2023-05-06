@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import { restoreCSRF, csrfFetch } from './csrf';
 import sessionReducer from './session';
 import spotReducer from './spot';
+import reviewsReducer from './review';
 
 const rootReducer = combineReducers({
   // add reducer functions here
   session: sessionReducer,
   spots: spotReducer,
+  reviews: reviewsReducer,
 });
 
 let enhancer;

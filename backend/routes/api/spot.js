@@ -237,7 +237,7 @@ router.post('/:spotId/reviews', async (req, res) => {
 //Get all reviews by spotId
 router.get('/:spotId/reviews', async (req, res) => {
   const reviewSpotId = req.params.spotId;
-  const findSpot = await Review.findOne({
+  const findSpot = await Review.findAll({
     where: { spotId: reviewSpotId },
     include: [
       { model: ReviewImage, attributes: ['id', 'url'] },

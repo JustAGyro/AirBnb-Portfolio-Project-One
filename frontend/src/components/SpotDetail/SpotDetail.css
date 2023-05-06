@@ -1,30 +1,49 @@
 .spot-container {
-  max-width: 600px;
+  width: 80%;
   margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .spot-name {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .spot-address {
-  margin-bottom: 1rem;
+  font-size: 18px;
+  margin-bottom: 20px;
 }
 
 .spot-description {
-  margin-bottom: 1rem;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
 .spot-location {
-  margin-bottom: 1rem;
+  display: flex;
+  margin-bottom: 20px;
 }
 
 .spot-location p {
-  margin: 0;
+  font-size: 18px;
+  margin-right: 20px;
 }
 
-Link {
-  display: block;
-  margin-top: 1rem;
+.reviews-container {
+  margin-top: 20px;
+}
+
+.review {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.review p {
+  font-size: 18px;
+  margin-bottom: 5px;
 }
