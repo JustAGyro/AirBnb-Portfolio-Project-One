@@ -7,7 +7,7 @@ import { getSpots } from '../../store/spot';
 
 function HomePage() {
   const dispatch = useDispatch();
-  const spots = useSelector((state) => Object.values(state.spots));
+  const spots = useSelector((state) => Object.values(state.spots).reverse());
 
   useEffect(() => {
     dispatch(getSpots());
@@ -28,7 +28,7 @@ function HomePage() {
               <div className="average-rating">
                 <i className="fa fa-star"></i>
                 <div className="spot-card-stars">
-                  {spot.average_rating.toFixed(2)}
+                  {spot.average_rating ? spot.average_rating.toFixed(2) : 'NEW'}
                 </div>
               </div>
               <div className="spot-card-price">${spot.price} night</div>

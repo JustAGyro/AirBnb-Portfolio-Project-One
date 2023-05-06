@@ -9,7 +9,6 @@ import { useParams } from 'react-router-dom';
 function SpotDetail() {
   const dispatch = useDispatch();
   const { spotId } = useParams();
-
   const spot = useSelector((state) => state.spots[spotId]); // populate from Redux store
   console.log(spot);
 

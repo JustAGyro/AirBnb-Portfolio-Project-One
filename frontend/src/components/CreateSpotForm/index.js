@@ -61,7 +61,7 @@ const SpotForm = () => {
     // createdImages = await dispatch(createAnImage(imagePayload, createdSpot.id));
 
     if (createdSpot) {
-      history.push(`/spots/${createdSpot.id}`);
+      history.push(`/api/spots/${createdSpot.id}`);
     }
   };
 
