@@ -28,7 +28,7 @@ function HomePage() {
               <div className="average-rating">
                 <i className="fa fa-star"></i>
                 <div className="spot-card-stars">
-                  {spot.average_rating ? spot.average_rating.toFixed(2) : 'NEW'}
+                  {spot.average_rating ? spot.average_rating.toFixed(1) : 'NEW'}
                 </div>
               </div>
               <div className="spot-card-price">${spot.price} night</div>

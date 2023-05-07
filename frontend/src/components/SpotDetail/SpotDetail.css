@@ -84,18 +84,90 @@
   padding: 2px;
 }
 
-.spot-description-container {
+.container {
   display: grid;
-  grid-template-columns: 70% 30%;
-  grid-template-rows: auto auto;
+  grid-template-columns: 1.3fr 0.7fr;
+  grid-template-rows: 0.2fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas: 'Text Price';
+  border-bottom: 1px solid black;
 }
 
-.spot-description {
-  grid-row: 1 / span 1;
-  grid-column: 1 / span 1;
+.Text {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.6fr 1.4fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    'Hosted'
+    'Description';
+  grid-area: Text;
 }
 
-.spot-description-container > div {
-  grid-row: 1 / span 2;
-  grid-column: 2 / span 1;
+.Hosted {
+  grid-area: Hosted;
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+.Description {
+  grid-area: Description;
+  word-wrap: normal;
+  font-size: 20px;
+  margin-top: -30px;
+}
+
+.Price {
+  grid-area: Price;
+}
+
+.price-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    'price-ratings-container'
+    'reserve-button';
+}
+.price-ratings-container {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: 'price-display ratings-display';
+  grid-area: price-ratings-container;
+}
+.price-display {
+  grid-area: price-display;
+  font-weight: bold; /* Added */
+  font-size: 24px; /* Added */
+  display: flex; /* Added */
+  align-items: center; /* Added */
+}
+.ratings-display {
+  grid-area: ratings-display;
+  font-weight: bold;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 20px;
+}
+.reserve-button {
+  grid-area: reserve-button;
+  display: flex;
+  justify-content: center;
+}
+.button-to-reserve {
+  background-color: orange;
+  color: white;
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 10px 20px;
+  border: 2px solid black;
+  width: 95%;
 }
