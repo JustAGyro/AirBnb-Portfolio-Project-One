@@ -4,12 +4,14 @@ import { restoreCSRF, csrfFetch } from './csrf';
 import sessionReducer from './session';
 import spotReducer from './spot';
 import reviewsReducer from './review';
+import ownerReducer from './owner';
 
 const rootReducer = combineReducers({
   // add reducer functions here
   session: sessionReducer,
   spots: spotReducer,
   reviews: reviewsReducer,
+  owner: ownerReducer,
 });
 
 let enhancer;

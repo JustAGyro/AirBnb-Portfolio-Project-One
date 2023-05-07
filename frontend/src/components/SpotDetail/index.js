@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getReviewsBySpotId } from '../../store/review';
 import { clearReviews } from '../../store/review';
+import { clearOwner, getOwnerBySpotId } from '../../store/owner';
 
 function SpotDetail() {
   const dispatch = useDispatch();
@@ -12,17 +13,20 @@ function SpotDetail() {
   const spot = useSelector((state) => state.spots[spotId]); // populate from Redux store
   console.log(spot);
   const reviewNumber = useSelector((state) => Object.values(state.reviews));
-  console.log(reviewNumber.length);
 
   useEffect(() => {
     dispatch(getReviewsBySpotId(spotId));
-
+    dispatch(getOwnerBySpotId(spotId));
     return () => {
       dispatch(clearReviews());
+      dispatch(clearOwner());
     };
   }, [dispatch, spotId]);
 
   const reviews = useSelector((state) => Object.values(state.reviews)); // retrieve reviews from Redux store
+  const spotOwner = useSelector((state) => Object.values(state.owner));
+  const actualOwner = spotOwner[0];
+  console.log(reviews);
 
   return (
     // <h1>hi</h1>
@@ -56,9 +60,13 @@ function SpotDetail() {
       </div>
       <div class="container">
         <div class="Text">
-          <div class="Hosted">
-            <p>Hosted by FirstName, LastName</p>
-          </div>
+          {actualOwner && (
+            <div class="Hosted">
+              <p>
+                Hosted by {actualOwner.firstName} {actualOwner.lastName}
+              </p>
+            </div>
+          )}
           <div class="Description">
             <p>{spot.description}</p>
           </div>
@@ -94,13 +102,19 @@ function SpotDetail() {
             : 'NEW'}
         </div>
         {reviews &&
-          reviews.map((review) => (
-            <div key={review.id} className="review">
-              <p>{review.review}</p>
-              <p>{review.stars}</p>
-              <p>{review.userId}</p>
-            </div>
-          ))}
+          reviews.map((review) => {
+            const formattedDate = new Intl.DateTimeFormat('en-US', {
+              year: 'numeric',
+              month: 'long',
+            }).format(new Date(review.createdAt));
+            return (
+              <div key={review.id} className="review">
+                <h2>{formattedDate}</h2>
+                <h2>{review.User.firstName}</h2>
+                <p>{review.review}</p>
+              </div>
+            );
+          })}
       </div>
     </div>
   );
