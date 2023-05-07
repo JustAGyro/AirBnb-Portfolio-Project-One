@@ -21,21 +21,40 @@ function SpotDetail() {
   }, [dispatch, spotId]);
 
   const reviews = useSelector((state) => Object.values(state.reviews)); // retrieve reviews from Redux store
-  // const reviewsArray = Object.values(reviews);
-  console.log('what am i looking at?');
-  console.log(reviews);
 
   return (
     // <h1>hi</h1>
     <div className="spot-container">
       <h1 className="spot-name">{spot.name}</h1>
       <p className="spot-address">
-        {spot.address}, {spot.city}, {spot.state}, {spot.country}
+        {spot.city}, {spot.state}, {spot.country}
       </p>
-      <p className="spot-description">{spot.description}</p>
-      <div className="spot-location">
-        <p>Latitude: {spot.lat}</p>
-        <p>Longitude: {spot.lng}</p>
+      <div className="spot-images-container">
+        {spot.previewImage && (
+          <>
+            <div className="images">
+              <img
+                className="first"
+                src={spot.previewImage[0][0].url}
+                alt="Spot Preview"
+              />
+              <div className="images-rest">
+                {spot.previewImage[0].slice(1).map((image, index) => (
+                  <img
+                    className="restofimages"
+                    key={index}
+                    src={image.url}
+                    alt="Spot Preview"
+                  />
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+      <div className="spot-description-container">
+        <p className="hosted-by">Hosted by Firstname, Lastname</p>
+        <p className="spot-description">{spot.description}</p>
       </div>
       <div className="reviews-container">
         <h2>Reviews:</h2>

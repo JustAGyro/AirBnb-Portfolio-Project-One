@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './HomePage.css';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -18,7 +18,7 @@ function HomePage() {
       {spots.map((spot) => (
         <Link to={`/api/spots/${spot.id}`}>
           <div key={spot.id} className="spot-card">
-            <img src="./images/image.jpg" alt={spot.name} />
+            <img src={spot.previewImage[0][0].url} alt={spot.name} />
             <div className="spot-info">
               <div className="spot-card-location">
                 <div className="spot-card-city-state">
