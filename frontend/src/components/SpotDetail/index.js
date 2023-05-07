@@ -106,11 +106,11 @@ function SpotDetail() {
             const formattedDate = new Intl.DateTimeFormat('en-US', {
               year: 'numeric',
               month: 'long',
-            }).format(new Date(review.createdAt));
+            }).format(new Date(review.updatedAt));
             return (
               <div key={review.id} className="review">
-                <h2>{formattedDate}</h2>
                 <h2>{review.User.firstName}</h2>
+                <h3>{formattedDate}</h3>
                 <p>{review.review}</p>
               </div>
             );
