@@ -8,6 +8,7 @@ import './CreateSpotForm.css';
 const SpotForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  let hasErrors = false;
 
   //State for fields
   const [country, setCountry] = useState('');
@@ -16,7 +17,7 @@ const SpotForm = () => {
   const [state, setState] = useState('');
   const [description, setDescription] = useState('');
   const [name, setName] = useState('');
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState('');
   const [previewImage, setPreviewImage] = useState('');
   const [image1, setImage1] = useState('');
   const [image2, setImage2] = useState('');
@@ -30,6 +31,7 @@ const SpotForm = () => {
   const [stateError, setStateError] = useState('');
   const [nameError, setNameError] = useState('');
   const [descriptionError, setDescriptionError] = useState('');
+  const [priceError, setPriceError] = useState('');
 
   const updateCountry = (e) => setCountry(e.target.value);
   const updateAddress = (e) => setAddress(e.target.value);
@@ -37,23 +39,26 @@ const SpotForm = () => {
   const updateState = (e) => setState(e.target.value);
   const updateDescription = (e) => setDescription(e.target.value);
   const updateName = (e) => setName(e.target.value);
-  const updatePrice = (e) => setPrice(parseFloat(e.target.value));
   const updatePreviewImage = (e) => setPreviewImage(e.target.value);
   const updateImage1 = (e) => setImage1(e.target.value);
   const updateImage2 = (e) => setImage2(e.target.value);
   const updateImage3 = (e) => setImage3(e.target.value);
   const updateImage4 = (e) => setImage4(e.target.value);
 
+  //Price has update and error in one
+  const updatePrice = (event) => {
+    const newPrice = event.target.value;
+    setPrice(newPrice);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     //Errors
-    let hasErrors = false;
 
     //Country error
     if (country.trim() === '') {
       setCountryError('Country is required');
-      console.log('do we even do this?');
       hasErrors = true;
     }
     //Address error
@@ -77,6 +82,7 @@ const SpotForm = () => {
       hasErrors = true;
     }
 
+    //Description error
     if (description.length < 30) {
       setDescriptionError('Description must be at least 30 characters');
       hasErrors = true;
@@ -84,10 +90,17 @@ const SpotForm = () => {
       setDescriptionError('');
     }
 
+    //Name error
+    if (price.trim() === '') {
+      setPriceError('Price is required');
+      hasErrors = true;
+    }
+
     if (hasErrors) {
       return; // do not submit the form if there are errors
     }
 
+    const priceToNumber = parseFloat(price);
     //onSubmit portion if form is correct / error free
     const payload = {
       country,
@@ -96,7 +109,7 @@ const SpotForm = () => {
       state,
       description,
       name,
-      price,
+      priceToNumber,
     };
 
     const imagePayload = {
@@ -116,10 +129,6 @@ const SpotForm = () => {
     if (createdSpot) {
       history.push(`/api/spots/${createdSpot.id}`);
     }
-  };
-
-  const handleCancelClick = (e) => {
-    e.preventDefault();
   };
 
   return (
@@ -229,14 +238,29 @@ const SpotForm = () => {
             {nameError}
           </p>
         )}
-        <p className="fieldname">Country</p>
+        <div className="priceheader">
+          <p className="pricefield">Set a base price for your spot</p>
+          <p className="pricefield1">
+            Competitive pricing can help your listing stand out and rank higher
+            in search results.
+          </p>
+        </div>
         <input
-          className="inputfieldprice"
-          type="number"
+          className="inputfield"
+          type="text"
           placeholder="Price per night (USD)"
           value={price}
           onChange={updatePrice}
         />
+        <p id="pricefielderror" className="fieldname">
+          {priceError && <span className="error">{priceError}</span>}
+        </p>
+        <div className="imageheader">
+          <p className="imagefield">Liven up your spot with photos</p>
+          <p className="imagefield1">
+            Submit a link to at least one photo to publish your spot.
+          </p>
+        </div>
         <input
           className="inputfield"
           type="text"
@@ -274,9 +298,6 @@ const SpotForm = () => {
         />
         <button className="submitspotbutton" type="submit">
           Create new Spot
-        </button>
-        <button type="button" onClick={handleCancelClick}>
-          Cancel
         </button>
       </form>
     </section>

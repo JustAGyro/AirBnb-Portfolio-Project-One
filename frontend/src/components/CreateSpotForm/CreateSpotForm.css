@@ -253,3 +253,55 @@
   padding-bottom: 4px;
   border-bottom: 2px solid black;
 }
+
+.priceheader {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: -10px;
+  min-width: 102%;
+}
+
+.pricefield {
+  flex: 1;
+  margin-right: 10px;
+  text-align: left;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.pricefield1 {
+  margin-right: 10px;
+  text-align: left;
+  font-size: 18px;
+  margin-top: -10px;
+}
+
+#pricefielderror {
+  min-width: 102%;
+  padding-bottom: 4px;
+  border-bottom: 2px solid black;
+}
+
+.imageheader {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: -10px;
+  min-width: 102%;
+}
+
+.imagefield {
+  flex: 1;
+  margin-right: 10px;
+  text-align: left;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.imagefield1 {
+  margin-right: 10px;
+  text-align: left;
+  font-size: 18px;
+  margin-top: -10px;
+}
