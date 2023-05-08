@@ -13,7 +13,7 @@ function Navigation({ isLoaded }) {
     <ul>
       <li>
         <NavLink exact to="/">
-          Home
+          <Logo />
         </NavLink>
       </li>
       {isLoaded && (

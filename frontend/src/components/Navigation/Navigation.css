@@ -8,6 +8,7 @@ ul {
 
 li:first-child {
   margin-right: auto; /* Pushes first item to the left */
+  margin-left: -30px;
 }
 
 .cat {

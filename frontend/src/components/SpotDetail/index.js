@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './SpotDetail.css';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -87,7 +87,12 @@ function SpotDetail() {
               </div>
             </div>
             <div class="reserve-button">
-              <button className="button-to-reserve">Reserve!</button>
+              <button
+                className="button-to-reserve"
+                onClick={() => alert('Feature coming soon...')}
+              >
+                Reserve
+              </button>
             </div>
           </div>
         </div>
