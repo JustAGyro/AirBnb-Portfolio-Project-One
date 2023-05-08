@@ -16,9 +16,17 @@ function HomePage() {
   return (
     <div className="spots-container">
       {spots.map((spot) => (
-        <Link to={`/api/spots/${spot.id}`}>
+        <Link to={`/api/spots/${spot.id}`} title={spot.name}>
           <div key={spot.id} className="spot-card">
-            <img src={spot.previewImage[0][0].url} alt={spot.name} />
+            <img
+              src={
+                spot.previewImage &&
+                spot.previewImage[0][0] &&
+                spot.previewImage[0][0].url
+                  ? spot.previewImage[0][0].url
+                  : 'https://media.makeameme.org/created/file-not-found-c17b083c9c.jpg'
+              }
+            />
             <div className="spot-info">
               <div className="spot-card-location">
                 <div className="spot-card-city-state">
@@ -28,7 +36,7 @@ function HomePage() {
               <div className="average-rating">
                 <i className="fa fa-star"></i>
                 <div className="spot-card-stars">
-                  {spot.average_rating ? spot.average_rating.toFixed(1) : 'NEW'}
+                  {spot.average_rating ? spot.average_rating.toFixed(2) : 'NEW'}
                 </div>
               </div>
               <div className="spot-card-price">${spot.price} night</div>

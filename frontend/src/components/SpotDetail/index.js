@@ -41,7 +41,13 @@ function SpotDetail() {
             <div className="images">
               <img
                 className="first"
-                src={spot.previewImage[0][0].url}
+                src={
+                  spot.previewImage &&
+                  spot.previewImage[0][0] &&
+                  spot.previewImage[0][0].url
+                    ? spot.previewImage[0][0].url
+                    : 'https://media.makeameme.org/created/file-not-found-c17b083c9c.jpg'
+                }
                 alt="Spot Preview"
               />
               <div className="images-rest">

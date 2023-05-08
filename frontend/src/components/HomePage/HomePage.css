@@ -23,10 +23,10 @@
 }
 
 .spot-card img {
-  min-width: 100%;
-  min-height: 100%;
+  width: 450px;
+  height: 250px;
   object-fit: cover;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .spot-info {

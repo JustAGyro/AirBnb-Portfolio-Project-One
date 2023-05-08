@@ -101,6 +101,7 @@ const SpotForm = () => {
     }
 
     const priceToNumber = parseFloat(price);
+    console.log(priceToNumber);
     //onSubmit portion if form is correct / error free
     const payload = {
       country,
@@ -109,22 +110,24 @@ const SpotForm = () => {
       state,
       description,
       name,
-      priceToNumber,
-    };
-
-    const imagePayload = {
-      previewImage,
-      image1,
-      image2,
-      image3,
-      image4,
+      price: priceToNumber,
     };
 
     let createdSpot;
     createdSpot = await dispatch(createASpot(payload));
 
+    let newSpotId = createdSpot.id;
+
+    const imagePreviewPayload = {
+      url: previewImage,
+      spotId: newSpotId,
+      preview: true,
+    };
+
     let createdImages;
-    createdImages = await dispatch(createAnImage(imagePayload, createdSpot.id));
+    createdImages = await dispatch(
+      createAnImage(imagePreviewPayload, createdSpot.id)
+    );
 
     if (createdSpot) {
       history.push(`/api/spots/${createdSpot.id}`);

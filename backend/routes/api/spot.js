@@ -15,7 +15,7 @@ const { Op } = require('sequelize');
 //Get all spots
 router.get('/', async (req, res) => {
   const page = parseInt(req.query.page) || 1; // default to page 1 if not provided
-  const size = parseInt(req.query.size) || 10; // default to 10 items per page if not provided
+  const size = parseInt(req.query.size) || 100; // default to 10 items per page if not provided
   const offset = (page - 1) * size;
   const spots = await Spot.findAll({
     attributes: [
