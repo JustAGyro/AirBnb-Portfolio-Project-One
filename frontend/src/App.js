@@ -7,6 +7,7 @@ import { Route } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import SpotDetail from './components/SpotDetail';
 import CreateSpotForm from './components/CreateSpotForm';
+import SpotCurrentUser from './components/SpotCurrentUser';
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route path="/api/spots/new">
             <CreateSpotForm />
+          </Route>
+          <Route path="/api/spots/current">
+            <SpotCurrentUser />
           </Route>
           <Route path="/api/spots/:spotId">
             <SpotDetail />

@@ -4,7 +4,7 @@ import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
-import { useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import './Profilebutton.css';
 
 function ProfileButton({ user }) {
@@ -69,9 +69,13 @@ function ProfileButton({ user }) {
                   >
                     {user.email}
                   </li>
-                  <li style={{ fontSize: '1.2rem', margin: '0', padding: '0' }}>
-                    Manage Spots
-                  </li>
+                  <NavLink exact to="/api/spots/current">
+                    <li
+                      style={{ fontSize: '1.2rem', margin: '0', padding: '0' }}
+                    >
+                      Manage Spots
+                    </li>
+                  </NavLink>
                   <li style={{ fontSize: '1.2rem', margin: '0', padding: '0' }}>
                     Manage Reviews
                   </li>

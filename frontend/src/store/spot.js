@@ -3,6 +3,10 @@ import Cookies from 'js-cookie';
 const LOAD = 'spot/LOAD';
 const CREATE_SPOT = '/spot/CREATE_SPOT';
 const CREATE_IMAGE = '/spot/CREATE_IMAGE';
+const LOAD_CURRENT = '/spot/LOAD_CURRENT';
+const CLEAR_CURRENT = '/spot/CLEAR_CURRENT';
+const DELETE_SPOT = '/spot/DELETE_SPOT';
+const LOAD_ONE = '/spot/LOAD_ONE';
 
 const load = (list) => ({
   type: LOAD,
@@ -18,6 +22,25 @@ const createImage = (spot, image) => ({
   type: CREATE_IMAGE,
   spot,
   image,
+});
+
+const loadCurrent = (spots) => ({
+  type: LOAD_CURRENT,
+  spots,
+});
+
+export const clearCurrent = () => ({
+  type: CLEAR_CURRENT,
+});
+
+const deleteSpot = (id) => ({
+  type: DELETE_SPOT,
+  id,
+});
+
+const loadOne = (spot) => ({
+  type: LOAD_ONE,
+  spot,
 });
 
 export const getSpots = () => async (dispatch) => {
@@ -63,6 +86,39 @@ export const createAnImage = (data, spotId) => async (dispatch) => {
   }
 };
 
+export const getCurrentSpots = () => async (dispatch) => {
+  const response = await fetch('/api/spots/current');
+  if (response.ok) {
+    const spots = await response.json();
+    console.log(spots);
+    dispatch(loadCurrent(spots));
+  }
+};
+
+export const deleteASpot = (id) => async (dispatch) => {
+  const token = Cookies.get('XSRF-TOKEN');
+  const response = await fetch(`/api/spots/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': token,
+    },
+  });
+
+  if (response.ok) {
+    dispatch(deleteSpot(id));
+  }
+};
+
+export const getOneSpot = (spotId) => async (dispatch) => {
+  const response = await fetch(`/api/spots/${spotId}`);
+  if (response.ok) {
+    const spot = await response.json();
+    console.log(spot);
+    dispatch(loadOne(spot));
+  }
+};
+
 const initialState = {};
 
 const spotReducer = (state = initialState, action) => {
@@ -94,6 +150,21 @@ const spotReducer = (state = initialState, action) => {
         ...state,
         [action.spot.id]: updatedSpot,
       };
+    case LOAD_CURRENT:
+      const allCurrentSpots = {};
+      action.spots.forEach((spot) => {
+        allCurrentSpots[spot.id] = spot;
+      });
+      return { ...allCurrentSpots };
+    case CLEAR_CURRENT: {
+      return {};
+    }
+    case DELETE_SPOT:
+      const { [action.id]: deletedSpot, ...remainingSpots } = state;
+      return remainingSpots;
+    case LOAD_ONE:
+      const oneSpot = { [action.spot.id]: action.spot };
+      return oneSpot;
     default:
       return state;
   }

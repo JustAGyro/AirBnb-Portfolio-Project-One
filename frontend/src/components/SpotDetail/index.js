@@ -6,127 +6,135 @@ import { useParams } from 'react-router-dom';
 import { getReviewsBySpotId } from '../../store/review';
 import { clearReviews } from '../../store/review';
 import { clearOwner, getOwnerBySpotId } from '../../store/owner';
+import { getOneSpot, clearCurrent } from '../../store/spot';
 
 function SpotDetail() {
   const dispatch = useDispatch();
   const { spotId } = useParams();
-  const spot = useSelector((state) => state.spots[spotId]); // populate from Redux store
-  console.log(spot);
   const reviewNumber = useSelector((state) => Object.values(state.reviews));
 
   useEffect(() => {
     dispatch(getReviewsBySpotId(spotId));
     dispatch(getOwnerBySpotId(spotId));
+    dispatch(getOneSpot(spotId));
     return () => {
       dispatch(clearReviews());
       dispatch(clearOwner());
+      dispatch(clearCurrent());
     };
   }, [dispatch, spotId]);
 
+  console.log(spotId);
+
+  const spot = useSelector((state) => state.spots[spotId]); // populate from Redux store
+
+  console.log('WHY ARE WE COMING BACK UNDEFINED??????');
+  console.log(spot);
+  console.log('WHY ARE WE COMING BACK UNDEFINED??????');
   const reviews = useSelector((state) => Object.values(state.reviews)); // retrieve reviews from Redux store
   const spotOwner = useSelector((state) => Object.values(state.owner));
   const actualOwner = spotOwner[0];
-  console.log(reviews);
 
   return (
-    // <h1>hi</h1>
     <div className="spot-container">
-      <h1 className="spot-name">{spot.name}</h1>
-      <p className="spot-address">
-        {spot.city}, {spot.state}, {spot.country}
-      </p>
-      <div className="spot-images-container">
-        {spot.previewImage && (
-          <>
-            <div className="images">
-              <img
-                className="first"
-                src={
-                  spot.previewImage &&
-                  spot.previewImage[0][0] &&
-                  spot.previewImage[0][0].url
-                    ? spot.previewImage[0][0].url
-                    : 'https://media.makeameme.org/created/file-not-found-c17b083c9c.jpg'
-                }
-                alt="Spot Preview"
-              />
-              <div className="images-rest">
-                {spot.previewImage[0].slice(1).map((image, index) => (
+      {spot && (
+        <>
+          <h1 className="spot-name">{spot.name}</h1>
+          <p className="spot-address">
+            {spot.city}, {spot.state}, {spot.country}
+          </p>
+          <div className="spot-images-container">
+            {spot.SpotImages && (
+              <>
+                <div className="images">
                   <img
-                    className="restofimages"
-                    key={index}
-                    src={image.url}
+                    className="first"
+                    src={
+                      spot.SpotImages && spot.SpotImages
+                        ? spot.SpotImages[0].url
+                        : 'https://media.makeameme.org/created/file-not-found-c17b083c9c.jpg'
+                    }
                     alt="Spot Preview"
                   />
-                ))}
-              </div>
-            </div>
-          </>
-        )}
-      </div>
-      <div class="container">
-        <div class="Text">
-          {actualOwner && (
-            <div class="Hosted">
-              <p>
-                Hosted by {actualOwner.firstName} {actualOwner.lastName}
-              </p>
-            </div>
-          )}
-          <div class="Description">
-            <p>{spot.description}</p>
+                  <div className="images-rest">
+                    {spot.SpotImages.slice(1).map((image, index) => (
+                      <img
+                        className="restofimages"
+                        key={index}
+                        src={image.url}
+                        alt="Spot Preview"
+                      />
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
-        </div>
-        <div class="Price">
-          <div class="price-container">
-            <div class="price-ratings-container">
-              <div class="price-display">
-                <p>${spot.price} night</p>
-              </div>
-              <div class="ratings-display">
-                <i className="fa fa-star"></i>
-                {spot.average_rating
-                  ? `${spot.average_rating.toFixed(1)} · ${
-                      reviewNumber.length
-                    } ${reviewNumber.length === 1 ? 'Review' : 'Reviews'}`
-                  : 'NEW'}
+          <div class="container">
+            <div class="Text">
+              {actualOwner && (
+                <div class="Hosted">
+                  <p>
+                    Hosted by {actualOwner.firstName} {actualOwner.lastName}
+                  </p>
+                </div>
+              )}
+              <div class="Description">
+                <p>{spot.description}</p>
               </div>
             </div>
-            <div class="reserve-button">
-              <button
-                className="button-to-reserve"
-                onClick={() => alert('Feature coming soon...')}
-              >
-                Reserve
-              </button>
+            <div class="Price">
+              <div class="price-container">
+                <div class="price-ratings-container">
+                  <div class="price-display">
+                    <p>${spot.price} night</p>
+                  </div>
+                  <div class="ratings-display">
+                    <i className="fa fa-star"></i>
+                    {spot.average_rating
+                      ? `${spot.average_rating.toFixed(1)} · ${
+                          reviewNumber.length
+                        } ${reviewNumber.length === 1 ? 'Review' : 'Reviews'}`
+                      : 'NEW'}
+                  </div>
+                </div>
+                <div class="reserve-button">
+                  <button
+                    className="button-to-reserve"
+                    onClick={() => alert('Feature coming soon...')}
+                  >
+                    Reserve
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="actual-reviews-container">
-        <div class="actual-ratings-display">
-          <i className="fa fa-star"></i>
-          {spot.average_rating
-            ? `${spot.average_rating.toFixed(1)} · ${reviewNumber.length} ${
-                reviewNumber.length === 1 ? 'Review' : 'Reviews'
-              }`
-            : 'NEW'}
-        </div>
-        {reviews &&
-          reviews.map((review) => {
-            const formattedDate = new Intl.DateTimeFormat('en-US', {
-              year: 'numeric',
-              month: 'long',
-            }).format(new Date(review.updatedAt));
-            return (
-              <div key={review.id} className="review">
-                <h2>{review.User.firstName}</h2>
-                <h3>{formattedDate}</h3>
-                <p>{review.review}</p>
-              </div>
-            );
-          })}
-      </div>
+          <div className="actual-reviews-container">
+            <div class="actual-ratings-display">
+              <i className="fa fa-star"></i>
+              {spot.average_rating
+                ? `${spot.average_rating.toFixed(1)} · ${reviewNumber.length} ${
+                    reviewNumber.length === 1 ? 'Review' : 'Reviews'
+                  }`
+                : 'NEW'}
+            </div>
+            {reviews &&
+              reviews.map((review) => {
+                const formattedDate = new Intl.DateTimeFormat('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                }).format(new Date(review.updatedAt));
+                return (
+                  <div key={review.id} className="review">
+                    <h2>{review.User.firstName}</h2>
+                    <h3>{formattedDate}</h3>
+                    <p>{review.review}</p>
+                  </div>
+                );
+              })}
+          </div>
+        </>
+      )}
     </div>
   );
 }
