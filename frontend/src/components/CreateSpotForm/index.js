@@ -60,27 +60,35 @@ const SpotForm = () => {
   useEffect(() => {
     if (country !== '') {
       setCountryError('');
+      hasErrors = false;
     }
     if (address !== '') {
       setAddressError('');
+      hasErrors = false;
     }
     if (city !== '') {
       setCityError('');
+      hasErrors = false;
     }
     if (state !== '') {
       setStateError('');
+      hasErrors = false;
     }
     if (description.length > 29) {
       setDescriptionError('');
+      hasErrors = false;
     }
     if (name !== '') {
       setNameError('');
+      hasErrors = false;
     }
     if (price !== '') {
       setPriceError('');
+      hasErrors = false;
     }
     if (previewImage !== '') {
       setReqPreview('');
+      hasErrors = false;
     }
   });
 
@@ -135,37 +143,39 @@ const SpotForm = () => {
       hasErrors = true;
     }
     if (!/\.(png|jpe?g)$/i.test(previewImage)) {
-      setImagePreError('Image file must be in PNG, JPEG, or JPG format.');
-      hasErrors = true;
+      if (previewImage !== '') {
+        setImagePreError('Image file must be in PNG, JPEG, or JPG format.');
+        hasErrors = true;
+      }
     }
 
     //Image errors
     if (!/\.(png|jpe?g)$/i.test(image1)) {
       if (image1 !== '') {
         setImage1Error('Image file must be in PNG, JPEG, or JPG format.');
+        hasErrors = true;
       }
-      hasErrors = true;
     }
 
     if (!/\.(png|jpe?g)$/i.test(image2)) {
       if (image2 !== '') {
         setImage2Error('Image file must be in PNG, JPEG, or JPG format.');
+        hasErrors = true;
       }
-      hasErrors = true;
     }
 
     if (!/\.(png|jpe?g)$/i.test(image3)) {
       if (image3 !== '') {
         setImage3Error('Image file must be in PNG, JPEG, or JPG format.');
+        hasErrors = true;
       }
-      hasErrors = true;
     }
 
     if (!/\.(png|jpe?g)$/i.test(image4)) {
       if (image4 !== '') {
         setImage4Error('Image file must be in PNG, JPEG, or JPG format.');
+        hasErrors = true;
       }
-      hasErrors = true;
     }
 
     if (hasErrors) {
