@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createASpot } from '../../store/spot';
 import { Redirect, useHistory } from 'react-router-dom';
@@ -32,6 +32,12 @@ const SpotForm = () => {
   const [nameError, setNameError] = useState('');
   const [descriptionError, setDescriptionError] = useState('');
   const [priceError, setPriceError] = useState('');
+  const [reqPreview, setReqPreview] = useState('');
+  const [imagePreError, setImagePreError] = useState('');
+  const [image1Error, setImage1Error] = useState('');
+  const [image2Error, setImage2Error] = useState('');
+  const [image3Error, setImage3Error] = useState('');
+  const [image4Error, setImage4Error] = useState('');
 
   const updateCountry = (e) => setCountry(e.target.value);
   const updateAddress = (e) => setAddress(e.target.value);
@@ -50,6 +56,33 @@ const SpotForm = () => {
     const newPrice = event.target.value;
     setPrice(newPrice);
   };
+
+  useEffect(() => {
+    if (country !== '') {
+      setCountryError('');
+    }
+    if (address !== '') {
+      setAddressError('');
+    }
+    if (city !== '') {
+      setCityError('');
+    }
+    if (state !== '') {
+      setStateError('');
+    }
+    if (description.length > 29) {
+      setDescriptionError('');
+    }
+    if (name !== '') {
+      setNameError('');
+    }
+    if (price !== '') {
+      setPriceError('');
+    }
+    if (previewImage !== '') {
+      setReqPreview('');
+    }
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -96,6 +129,45 @@ const SpotForm = () => {
       hasErrors = true;
     }
 
+    //Preview image / image errors
+    if (previewImage.trim() === '') {
+      setReqPreview('Preview Image URL is required');
+      hasErrors = true;
+    }
+    if (!/\.(png|jpe?g)$/i.test(previewImage)) {
+      setImagePreError('Image file must be in PNG, JPEG, or JPG format.');
+      hasErrors = true;
+    }
+
+    //Image errors
+    if (!/\.(png|jpe?g)$/i.test(image1)) {
+      if (image1 !== '') {
+        setImage1Error('Image file must be in PNG, JPEG, or JPG format.');
+      }
+      hasErrors = true;
+    }
+
+    if (!/\.(png|jpe?g)$/i.test(image2)) {
+      if (image2 !== '') {
+        setImage2Error('Image file must be in PNG, JPEG, or JPG format.');
+      }
+      hasErrors = true;
+    }
+
+    if (!/\.(png|jpe?g)$/i.test(image3)) {
+      if (image3 !== '') {
+        setImage3Error('Image file must be in PNG, JPEG, or JPG format.');
+      }
+      hasErrors = true;
+    }
+
+    if (!/\.(png|jpe?g)$/i.test(image4)) {
+      if (image4 !== '') {
+        setImage4Error('Image file must be in PNG, JPEG, or JPG format.');
+      }
+      hasErrors = true;
+    }
+
     if (hasErrors) {
       return; // do not submit the form if there are errors
     }
@@ -123,6 +195,54 @@ const SpotForm = () => {
       spotId: newSpotId,
       preview: true,
     };
+
+    const image1Payload = {
+      url: image1,
+      spotId: newSpotId,
+      preview: false,
+    };
+
+    const image2Payload = {
+      url: image2,
+      spotId: newSpotId,
+      preview: false,
+    };
+
+    const image3Payload = {
+      url: image3,
+      spotId: newSpotId,
+      preview: false,
+    };
+
+    const image4Payload = {
+      url: image4,
+      spotId: newSpotId,
+      preview: false,
+    };
+
+    if (image1 !== '') {
+      const createdImage1 = await dispatch(
+        createAnImage(image1Payload, createdSpot.id)
+      );
+    }
+
+    if (image2 !== '') {
+      const createdImage1 = await dispatch(
+        createAnImage(image2Payload, createdSpot.id)
+      );
+    }
+
+    if (image3 !== '') {
+      const createdImage1 = await dispatch(
+        createAnImage(image3Payload, createdSpot.id)
+      );
+    }
+
+    if (image4 !== '') {
+      const createdImage1 = await dispatch(
+        createAnImage(image4Payload, createdSpot.id)
+      );
+    }
 
     let createdImages;
     createdImages = await dispatch(
@@ -271,6 +391,18 @@ const SpotForm = () => {
           value={previewImage}
           onChange={updatePreviewImage}
         />
+        <p className="fieldname">
+          {reqPreview && (
+            <p id="previewfielderror" className="error">
+              {reqPreview}
+            </p>
+          )}
+          {imagePreError && (
+            <p id="preview1fielderror" className="error">
+              {imagePreError}
+            </p>
+          )}
+        </p>
         <input
           className="inputfield"
           type="text"
@@ -278,6 +410,13 @@ const SpotForm = () => {
           value={image1}
           onChange={updateImage1}
         />
+        <p className="fieldname">
+          {image1Error && (
+            <p id="imagefielderror" className="error">
+              {image1Error}
+            </p>
+          )}
+        </p>
         <input
           className="inputfield"
           type="text"
@@ -285,6 +424,13 @@ const SpotForm = () => {
           value={image2}
           onChange={updateImage2}
         />
+        <p className="fieldname">
+          {image2Error && (
+            <p id="imagefielderror" className="error">
+              {image2Error}
+            </p>
+          )}
+        </p>
         <input
           className="inputfield"
           type="text"
@@ -292,6 +438,13 @@ const SpotForm = () => {
           value={image3}
           onChange={updateImage3}
         />
+        <p className="fieldname">
+          {image3Error && (
+            <p id="imagefielderror" className="error">
+              {image3Error}
+            </p>
+          )}
+        </p>
         <input
           className="inputfield"
           type="text"
@@ -299,6 +452,13 @@ const SpotForm = () => {
           value={image4}
           onChange={updateImage4}
         />
+        <p className="fieldname">
+          {image4Error && (
+            <p id="imagefielderror" className="error">
+              {image4Error}
+            </p>
+          )}
+        </p>
         <button className="submitspotbutton" type="submit">
           Create new Spot
         </button>

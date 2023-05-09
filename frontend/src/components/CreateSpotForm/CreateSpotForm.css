@@ -305,3 +305,22 @@
   font-size: 18px;
   margin-top: -10px;
 }
+
+#previewfielderror {
+  min-width: 102%;
+  margin-top: -10px;
+  padding-bottom: 4px;
+  margin-left: -1px;
+}
+
+#preview1fielderror {
+  min-width: 102%;
+  margin-top: -10px;
+  padding-bottom: 4px;
+  margin-left: -1px;
+}
+
+#imagefielderror {
+  min-width: 102%;
+  padding-bottom: 4px;
+}
