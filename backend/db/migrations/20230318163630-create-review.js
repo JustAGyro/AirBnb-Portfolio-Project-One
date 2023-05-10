@@ -27,7 +27,7 @@ module.exports = {
           references: { model: 'Users' },
         },
         review: {
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(5000),
         },
         stars: {
           type: Sequelize.INTEGER,
