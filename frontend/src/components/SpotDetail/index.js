@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './SpotDetail.css';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -29,6 +29,7 @@ function SpotDetail() {
   const spot = useSelector((state) => state.spots[spotId]); // populate from Redux store
   const reviews = useSelector((state) => Object.values(state.reviews)); // retrieve reviews from Redux store
   const spotOwner = useSelector((state) => Object.values(state.owner));
+  const currentUser = useSelector((state) => state.session.user);
   const actualOwner = spotOwner[0];
 
   let avgRating = 0;
@@ -39,6 +40,19 @@ function SpotDetail() {
     const review = reviews[i];
     sum = sum + Number(review.stars);
     avgRating = sum / reviews.length;
+  }
+
+  let showButton = true;
+  let showDelete = false;
+
+  for (let i = 0; i < reviews.length; i++) {
+    const checkReview = reviews[i];
+    if (currentUser) {
+      if (checkReview.userId === currentUser.id) {
+        showButton = false;
+        showDelete = true;
+      }
+    }
   }
 
   return (
@@ -124,12 +138,33 @@ function SpotDetail() {
                   }`
                 : 'NEW'}
             </div>
-            <button className="post-reviews-button">
-              <OpenModalMenuItem
-                itemText="Post A Review"
-                modalComponent={<PostReviewModal spotId={spot.id} />}
-              />
-            </button>
+            {currentUser && (
+              <>
+                {actualOwner && (
+                  <>
+                    {showButton && currentUser.id !== actualOwner.id ? (
+                      <div>
+                        <button className="post-reviews-button">
+                          <OpenModalMenuItem
+                            itemText="Post A Review"
+                            modalComponent={
+                              <PostReviewModal spotId={spot.id} />
+                            }
+                          />
+                        </button>
+                        {reviews.length === 0 ? (
+                          <p>Be the first to post a review!</p>
+                        ) : (
+                          ''
+                        )}
+                      </div>
+                    ) : (
+                      ''
+                    )}
+                  </>
+                )}
+              </>
+            )}
             {reviews &&
               reviews.map((review) => {
                 const formattedDate = new Intl.DateTimeFormat('en-US', {
@@ -138,9 +173,14 @@ function SpotDetail() {
                 }).format(new Date(review.updatedAt));
                 return (
                   <div key={review.id} className="review">
-                    <h2>{review.User.firstName}</h2>
+                    {review?.User && <h2>{review.User.firstName}</h2>}
                     <h3>{formattedDate}</h3>
                     <p>{review.review}</p>
+                    {showDelete && review.userId === currentUser.id ? (
+                      <button>Delete</button>
+                    ) : (
+                      ''
+                    )}
                   </div>
                 );
               })}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Modal, useModal } from '../../context/Modal';
-import { createAReview } from '../../store/review';
+import { createAReview, getReviewsBySpotId } from '../../store/review';
 
 import './PostReviewModal.css';
 
@@ -52,7 +52,7 @@ function PostReviewModal({ spotId }) {
       stars: highlightedStars,
     };
 
-    dispatch(createAReview(payload, spotId)).then(closeModal());
+    dispatch(createAReview(payload, spotId)).then(closeModal);
   };
 
   return (

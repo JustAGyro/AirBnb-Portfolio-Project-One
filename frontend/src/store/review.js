@@ -40,6 +40,9 @@ export const createAReview = (data, spotId) => async (dispatch) => {
 
   if (res.ok) {
     const newReview = await res.json();
+    console.log('-DEEEEEEEEEEEEEEEEEEEEEEUUUUUUUUUUUUUUUUBGUFSDAF-');
+    console.log(newReview);
+    console.log('-DEEEEEEEEEEEEEEEEEEEEEEUUUUUUUUUUUUUUUUBGUFSDAF-');
     dispatch(createReview(newReview));
   }
 };
