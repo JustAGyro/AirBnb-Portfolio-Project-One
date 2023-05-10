@@ -6,6 +6,8 @@ import { getCurrentSpots } from '../../store/spot';
 import './SpotCurrentUser.css';
 import { clearCurrent } from '../../store/spot';
 import { deleteASpot } from '../../store/spot';
+import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+import DeleteSpotModal from '../DeleteSpotModal';
 
 function SpotCurrentUser() {
   const dispatch = useDispatch();
@@ -50,11 +52,12 @@ function SpotCurrentUser() {
             <Link to={`/api/spots/${spot.id}/edit`}>
               <button className="current-spot-card-button">Update</button>
             </Link>
-            <button
-              className="current-spot-card-button"
-              onClick={() => handleDeleteSpot(spot.id)}
-            >
-              Delete
+            <button className="current-spot-card-delete-button">
+              <OpenModalMenuItem
+                id="delete-text"
+                itemText="Delete"
+                modalComponent={<DeleteSpotModal />}
+              />
             </button>
           </div>
         </div>
