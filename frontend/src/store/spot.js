@@ -53,7 +53,6 @@ export const getSpots = () => async (dispatch) => {
   const response = await fetch('/api/spots');
   if (response.ok) {
     const list = await response.json();
-    console.log(list);
     dispatch(load(list));
   }
 };
@@ -96,7 +95,6 @@ export const getCurrentSpots = () => async (dispatch) => {
   const response = await fetch('/api/spots/current');
   if (response.ok) {
     const spots = await response.json();
-    console.log(spots);
     dispatch(loadCurrent(spots));
   }
 };
@@ -120,7 +118,6 @@ export const getOneSpot = (spotId) => async (dispatch) => {
   const response = await fetch(`/api/spots/${spotId}`);
   if (response.ok) {
     const spot = await response.json();
-    console.log(spot);
     dispatch(loadOne(spot));
   }
 };

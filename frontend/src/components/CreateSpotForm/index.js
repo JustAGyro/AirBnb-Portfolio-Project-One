@@ -183,7 +183,7 @@ const SpotForm = () => {
     }
 
     const priceToNumber = parseFloat(price);
-    console.log(priceToNumber);
+
     //onSubmit portion if form is correct / error free
     const payload = {
       country,

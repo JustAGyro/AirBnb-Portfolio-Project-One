@@ -123,7 +123,6 @@ const UpdateSpot = () => {
     }
 
     const priceToNumber = parseFloat(price);
-    console.log(priceToNumber);
     //onSubmit portion if form is correct / error free
     const payload = {
       country,
@@ -135,7 +134,6 @@ const UpdateSpot = () => {
       price: priceToNumber,
     };
 
-    console.log(payload);
 
     const spotId = spot.id;
 

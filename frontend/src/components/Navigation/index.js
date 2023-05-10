@@ -8,8 +8,6 @@ import Logo from './Logo';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
-  console.log('do we see this?');
-  console.log(sessionUser);
 
   return (
     <ul>

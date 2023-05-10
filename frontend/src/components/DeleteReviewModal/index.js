@@ -2,15 +2,16 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
+import { deleteAReview } from '../../store/review';
 
 import './DeleteReview.css';
 
-function DeleteReviewModal({ spotId }) {
+function DeleteReviewModal({ reviewId }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
-  const handleDeleteSpot = () => {
-    dispatch().then(closeModal);
+  const handleDeleteReview = () => {
+    dispatch(deleteAReview(reviewId)).then(closeModal);
   };
 
   const handleNoButton = () => {
@@ -23,11 +24,11 @@ function DeleteReviewModal({ spotId }) {
         <h1>Confirm Delete</h1>
         <h2>Are you sure you want to delete this review?</h2>
         <div className="review-confirm-container">
-          <button className="review-buttonboi" onClick={handleDeleteSpot}>
-            Yes
+          <button className="review-buttonboi" onClick={handleDeleteReview}>
+            Yes (Delete Review)
           </button>
           <button className="review-buttonboi-no" onClick={handleNoButton}>
-            No
+            No (Keep Review)
           </button>
         </div>
       </div>

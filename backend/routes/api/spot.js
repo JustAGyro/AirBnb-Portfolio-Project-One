@@ -46,7 +46,7 @@ router.get('/', async (req, res) => {
     let starsAverage = 0;
     for (let j = 0; j < reviewForSpot.length; j++) {
       let oneReview = reviewForSpot[j];
-      // console.log(oneReview.dataValues);
+
       starsAverage += oneReview.dataValues.stars;
       oneSpot.dataValues.average_rating = starsAverage / reviewForSpot.length;
     }
