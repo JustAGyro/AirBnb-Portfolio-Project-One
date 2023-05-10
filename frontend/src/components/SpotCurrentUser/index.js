@@ -17,10 +17,6 @@ function SpotCurrentUser() {
     dispatch(getCurrentSpots());
   }, [dispatch]);
 
-  const handleDeleteSpot = (spotId) => {
-    dispatch(deleteASpot(spotId));
-  };
-
   return (
     <div className="current-spots-container">
       {spots.map((spot) => (
@@ -56,7 +52,7 @@ function SpotCurrentUser() {
               <OpenModalMenuItem
                 id="delete-text"
                 itemText="Delete"
-                modalComponent={<DeleteSpotModal />}
+                modalComponent={<DeleteSpotModal spotId={spot.id} />}
               />
             </button>
           </div>
