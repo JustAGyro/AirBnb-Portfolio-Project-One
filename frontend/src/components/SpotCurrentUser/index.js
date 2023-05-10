@@ -8,6 +8,7 @@ import { clearCurrent } from '../../store/spot';
 import { deleteASpot } from '../../store/spot';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteSpotModal from '../DeleteSpotModal';
+import { NavLink } from 'react-router-dom';
 
 function SpotCurrentUser() {
   const dispatch = useDispatch();
@@ -19,6 +20,14 @@ function SpotCurrentUser() {
 
   return (
     <div className="current-spots-container">
+      <div className="managespots-container">
+        <h1>Manage Spots</h1>
+        {spots.length === 0 && (
+          <NavLink exact to="/api/spots/new">
+            <button className="create-spot-button">Create A New Spot</button>
+          </NavLink>
+        )}
+      </div>
       {spots.map((spot) => (
         <div key={spot.id} className="current-spot-card">
           <Link to={`/api/spots/${spot.id}`} title={spot.name}>

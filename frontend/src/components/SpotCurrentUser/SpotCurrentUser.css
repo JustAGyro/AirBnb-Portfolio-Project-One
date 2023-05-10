@@ -2,6 +2,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 20px;
+  position: relative;
+  padding-top: 140px; /* add space for managespots */
 }
 
 @media (min-width: 768px) {
@@ -95,4 +97,35 @@ a {
 li {
   justify-content: end;
   padding-right: 5px;
+}
+
+.create-spot-button {
+  /* Button styles */
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: orangered;
+  background-color: whitesmoke;
+  border: 2px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  /* Margin styles */
+  margin-right: 10px; /* Adds 10px margin to the right of the button */
+}
+
+.managespots-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 0 20px;
 }
