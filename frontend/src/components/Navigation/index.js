@@ -8,6 +8,8 @@ import Logo from './Logo';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
+  console.log('do we see this?');
+  console.log(sessionUser);
 
   return (
     <ul>
@@ -18,11 +20,13 @@ function Navigation({ isLoaded }) {
       </li>
       {isLoaded && (
         <>
-          <li>
-            <NavLink exact to="/api/spots/new" className="create-spot-btn">
-              Create a New Spot
-            </NavLink>
-          </li>
+          {sessionUser && (
+            <li>
+              <NavLink exact to="/api/spots/new" className="create-spot-btn">
+                Create a New Spot
+              </NavLink>
+            </li>
+          )}
           <li>
             <ProfileButton user={sessionUser} />
           </li>
