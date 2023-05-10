@@ -1,0 +1,62 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid black;
+  box-shadow: 4px 4px 4px black;
+  max-width: 100%;
+}
+
+.form-container input[type='text'],
+.form-container input[type='password'] {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid #ccc;
+  width: 90%;
+  font-size: 1.1rem;
+  margin-left: 17px;
+}
+
+.form-container p {
+  color: red;
+  margin-bottom: 1rem;
+}
+
+.signupbutton {
+  background-color: orangered;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.disabledsignupbutton {
+  background-color: #ccc;
+  color: #333;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.signupbutton:hover {
+  background-color: #c63700;
+}
+
+.form-container form {
+  width: 80%;
+  box-sizing: border-box;
+}
+
+.signupbutton-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,53 @@
+ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 50px;
+}
+
+li:first-child {
+  margin-right: auto; /* Pushes first item to the left */
+  margin-left: -30px;
+}
+
+.cat {
+  height: 100%;
+}
+
+li:last-child {
+  display: flex;
+  align-items: center;
+}
+
+li:last-child button {
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+}
+
+.create-spot-btn {
+  /* Button styles */
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: orangered;
+  background-color: whitesmoke;
+  border: 2px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  /* Margin styles */
+  margin-right: 10px; /* Adds 10px margin to the right of the button */
+}
+
+.create-spot-btn:hover {
+  background-color: #e5e5e5;
+}
+
+.ProfileButton {
+  /* Margin styles */
+  margin-left: 10px; /* Adds 10px margin to the left of the profile button */
+}

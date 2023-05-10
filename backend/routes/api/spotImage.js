@@ -23,7 +23,7 @@ router.delete('/:spotImageId', async (req, res) => {
     // If the spot image is not found, return a 404 response
     return res
       .status(404)
-      .json({ message: 'Spot image not found', status: 404 });
+      .json({ message: 'Spot image not found', status: '404' });
   }
 
   await spotImage.destroy();

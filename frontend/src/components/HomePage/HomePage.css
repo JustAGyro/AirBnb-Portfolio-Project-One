@@ -1,0 +1,84 @@
+.spots-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .spots-container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .spots-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, calc(25% - 20px)));
+  }
+}
+
+.spot-card {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.spot-card img {
+  width: 470px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.spot-info {
+  display: grid;
+  grid-template-areas:
+    'location rating'
+    'price    empty';
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 10px;
+  padding: 10px 0;
+  margin: 2px;
+}
+
+.spot-location {
+  grid-area: location;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.average-rating {
+  grid-area: rating;
+  display: flex;
+  align-items: top;
+  justify-content: right;
+}
+
+.star-icon {
+  color: #ffd700;
+  margin-right: 5px;
+}
+
+.rating {
+  margin: 0;
+}
+
+.price-label {
+  grid-area: price;
+  margin: 0;
+  font-weight: bold;
+}
+
+.price {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}

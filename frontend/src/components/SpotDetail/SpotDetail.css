@@ -1,0 +1,240 @@
+.spot-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.spot-name {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.spot-address {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.spot-description {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.spot-location {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.spot-location p {
+  font-size: 18px;
+  margin-right: 20px;
+}
+
+.reviews-container {
+  margin-top: 20px;
+}
+
+.first {
+  width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  margin-right: 2px;
+}
+
+.restofimages {
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: cover;
+}
+
+.images {
+  width: 100%;
+  display: flex;
+}
+
+.images > * {
+  flex: 1;
+}
+
+.images-rest {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.images-rest > * {
+  width: 49%;
+  height: 49%;
+  padding: 2px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  grid-template-rows: 0.2fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas: 'Text Price';
+  border-bottom: 1px solid black;
+}
+
+.Text {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.6fr 1.4fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    'Hosted'
+    'Description';
+  grid-area: Text;
+}
+
+.Hosted {
+  grid-area: Hosted;
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+.Description {
+  grid-area: Description;
+  word-wrap: normal;
+  font-size: 20px;
+  margin-top: -30px;
+}
+
+.Price {
+  grid-area: Price;
+}
+
+.price-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    'price-ratings-container'
+    'reserve-button';
+  border: 3px solid black;
+  border-radius: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+.price-ratings-container {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: 'price-display ratings-display';
+  grid-area: price-ratings-container;
+}
+.price-display {
+  grid-area: price-display;
+  font-weight: bold; /* Added */
+  font-size: 24px; /* Added */
+  display: flex; /* Added */
+  align-items: center; /* Added */
+  margin-left: 10px;
+}
+.ratings-display {
+  grid-area: ratings-display;
+  font-weight: bold;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 20px;
+}
+.reserve-button {
+  grid-area: reserve-button;
+  display: flex;
+  justify-content: center;
+}
+.button-to-reserve {
+  background-color: orangered;
+  color: white;
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 10px 20px;
+  border: 3px solid black;
+  width: 80%;
+  margin-bottom: 20px;
+}
+
+.button-to-reserve:hover {
+  cursor: pointer;
+}
+
+.actual-ratings-display {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 10px;
+}
+
+.review h2:first-of-type {
+  font-weight: bold;
+  margin-bottom: -10px;
+  margin-top: -2px;
+}
+
+.review h3 {
+  font-weight: bold;
+  color: darkgray;
+}
+
+.review p {
+  margin-top: 1px;
+}
+
+.post-reviews-button {
+  margin-top: 10px;
+  background-color: orangered;
+  color: white;
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 10px 20px;
+  border: 3px solid black;
+  width: 15%;
+  margin-bottom: 20px;
+}
+
+.post-reviews-button:hover {
+  cursor: pointer;
+}
+
+.post-reviews-button li {
+  margin-right: 25px;
+}
+
+.delete-review-button {
+  margin-top: 10px;
+  background-color: orangered;
+  color: white;
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  font-size: 1.2em;
+  border: 3px solid black;
+  width: 5%;
+  margin-bottom: 20px;
+}
+
+.delete-review-button:hover {
+  cursor: pointer;
+}
+
+.delete-review-button li {
+  margin-right: -3px;
+}

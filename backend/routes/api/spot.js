@@ -15,7 +15,7 @@ const { Op } = require('sequelize');
 //Get all spots
 router.get('/', async (req, res) => {
   const page = parseInt(req.query.page) || 1; // default to page 1 if not provided
-  const size = parseInt(req.query.size) || 10; // default to 10 items per page if not provided
+  const size = parseInt(req.query.size) || 100; // default to 10 items per page if not provided
   const offset = (page - 1) * size;
   const spots = await Spot.findAll({
     attributes: [
@@ -46,9 +46,9 @@ router.get('/', async (req, res) => {
     let starsAverage = 0;
     for (let j = 0; j < reviewForSpot.length; j++) {
       let oneReview = reviewForSpot[j];
-      // console.log(oneReview.dataValues);
+
       starsAverage += oneReview.dataValues.stars;
-      oneSpot.dataValues.avgRating = starsAverage / reviewForSpot.length;
+      oneSpot.dataValues.average_rating = starsAverage / reviewForSpot.length;
     }
   }
 
@@ -60,11 +60,10 @@ router.get('/', async (req, res) => {
       where: { spotId: oneSpot.id },
       attributes: ['url'],
     });
-
-    oneSpot.dataValues.previewImage = imageForSpot[0].url;
+    oneSpot.dataValues.previewImage = [imageForSpot];
   }
 
-  res.json({ spots: spots, page: page, size: size });
+  res.json(spots);
 });
 
 //Create a spot
@@ -97,7 +96,7 @@ router.post('/:spotId/images', async (req, res) => {
   if (!spot) {
     return res
       .status(404)
-      .json({ message: "Spot couldn't be found", statusCode: 404 });
+      .json({ message: "Spot couldn't be found", status: '404' });
   }
 
   const newSpotImage = await SpotImage.scope('defaultScope').create({
@@ -139,7 +138,7 @@ router.get('/current', async (req, res) => {
           Sequelize.fn('AVG', Sequelize.col('Reviews.stars')),
           null
         ),
-        'avgRating',
+        'average_rating',
       ],
       [
         Sequelize.fn('COALESCE', Sequelize.col('SpotImages.url'), null),
@@ -158,7 +157,7 @@ router.get('/current', async (req, res) => {
     ],
     group: ['Spot.id', 'SpotImages.url'],
   });
-  res.json({ spots: currentUserSpots });
+  res.json(currentUserSpots);
 });
 
 //Get details of a spot by spotId
@@ -167,13 +166,10 @@ router.get('/:spotId', async (req, res) => {
 
   const findSpot = await Spot.findOne({
     where: { id: spotId },
-    include: [
-      { model: SpotImage },
-      { model: User, as: 'Owner', attributes: ['id', 'firstName', 'lastName'] },
-    ],
+    include: [{ model: SpotImage }, { model: User, as: 'Owner' }],
   });
   if (!findSpot) {
-    return res.status(404).json({ message: 'Spot not found', statusCode: 404 });
+    return res.status(404).json({ message: 'Spot not found', status: '404' });
   }
 
   res.json(findSpot);
@@ -187,7 +183,7 @@ router.put('/:spotId', async (req, res) => {
 
   const spot = await Spot.findByPk(spotId);
   if (!spot) {
-    return res.status(404).json({ message: 'Spot not found', statusCode: 404 });
+    return res.status(404).json({ message: 'Spot not found', status: '404' });
   }
 
   spot.address = address;
@@ -214,7 +210,7 @@ router.post('/:spotId/reviews', async (req, res) => {
   //If spotId doesnt exist -- error
   const spot = await Spot.findByPk(reviewSpotId);
   if (!spot) {
-    return res.status(404).json({ message: 'Spot not found', statusCode: 404 });
+    return res.status(404).json({ message: 'Spot not found', status: '404' });
   }
 
   //If spotId has a review by the current user -- error
@@ -225,7 +221,7 @@ router.post('/:spotId/reviews', async (req, res) => {
   if (findReview) {
     return res.status(403).json({
       message: 'Review for spot already found for this user',
-      statusCode: '403',
+      status: '403',
     });
   }
 
@@ -241,7 +237,7 @@ router.post('/:spotId/reviews', async (req, res) => {
 //Get all reviews by spotId
 router.get('/:spotId/reviews', async (req, res) => {
   const reviewSpotId = req.params.spotId;
-  const findSpot = await Review.findOne({
+  const findSpot = await Review.findAll({
     where: { spotId: reviewSpotId },
     include: [
       { model: ReviewImage, attributes: ['id', 'url'] },
@@ -250,9 +246,9 @@ router.get('/:spotId/reviews', async (req, res) => {
   });
 
   if (!findSpot) {
-    return res.status(404).json({ message: 'Spot not found', statusCode: 404 });
+    return res.status(404).json({ message: 'Spot not found', status: '404' });
   }
-  res.json({ Reviews: [findSpot] });
+  res.json(findSpot);
 });
 
 //Create a booking used a spotId
@@ -267,14 +263,13 @@ router.post('/:spotId/bookings', async (req, res) => {
   });
 
   if (!findSpot) {
-    return res.status(404).json({ message: 'Spot not found', statusCode: 404 });
+    return res.status(404).json({ message: 'Spot not found', status: '404' });
   }
 
   if (endDate <= startDate) {
-    return res.status(404).json({
-      message: 'End date cannot be before start date',
-      statusCode: 400,
-    });
+    return res
+      .status(404)
+      .json({ message: 'End date cannot be before start date', status: '400' });
   }
 
   const conflicts = await Booking.findAll({
@@ -312,7 +307,7 @@ router.post('/:spotId/bookings', async (req, res) => {
   if (conflicts.length > 0) {
     return res.status(400).json({
       message: 'Booking conflicts with existing bookings',
-      statusCode: '400',
+      status: '400',
     });
   }
 
@@ -333,7 +328,7 @@ router.get('/:spotId/bookings', async (req, res) => {
   const spot = await Spot.findOne({ where: { id: spotId } });
   //Spot doesnt exist error
   if (!spot) {
-    return res.status(404).json({ message: 'Spot not found', statusCode: 404 });
+    return res.status(404).json({ message: 'Spot not found', status: '404' });
   }
   const isOwner = spot.ownerId === currentUserId;
 
@@ -350,7 +345,7 @@ router.get('/:spotId/bookings', async (req, res) => {
       where: { spotId: spotId },
     });
   }
-  res.json({ Bookings: bookings });
+  res.json(bookings);
 });
 
 //Delete a spot based on a spotId
@@ -362,7 +357,7 @@ router.delete('/:spotId', async (req, res) => {
 
   if (!spot) {
     // If the spot image is not found, return a 404 response
-    return res.status(404).json({ message: 'Spot not found', statusCode: 404 });
+    return res.status(404).json({ message: 'Spot not found', status: '404' });
   }
 
   await spot.destroy();

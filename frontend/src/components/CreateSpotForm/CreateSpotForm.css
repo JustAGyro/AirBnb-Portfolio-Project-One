@@ -1,0 +1,326 @@
+.new-form-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 80px;
+}
+
+.form-header {
+  text-align: left;
+  margin-bottom: 2rem;
+  min-width: 41%;
+  margin-bottom: -10px;
+}
+.formheadertext1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: -5px;
+}
+.formheadertext {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: -5px;
+}
+
+.create-spot-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 40%;
+}
+
+.inputfield {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 16px;
+  background-color: #e1f0ff;
+}
+
+.inputfieldprice {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 16px;
+}
+
+.submitspotbutton {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: orangered;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submitspotbutton:hover {
+  background-color: #c63700;
+}
+
+.form-field {
+  display: flex;
+  align-items: center;
+}
+
+.fieldname {
+  flex: 1;
+  margin-right: 10px;
+  text-align: left;
+  min-width: 100%;
+  font-size: 18px;
+}
+
+.error {
+  color: red;
+  font-size: 18px;
+  margin-bottom: 5px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+  text-align: left;
+}
+
+.citystatefields {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1.3fr 0.7fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    'citylabel statelabel'
+    'cityinput stateinput';
+  border-bottom: 2px solid black;
+}
+
+.citylabel {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas: 'labelcity';
+  grid-area: citylabel;
+}
+
+.labelcity {
+  margin-left: -8px;
+  margin-bottom: -15px;
+  grid-area: labelcity;
+  display: flex;
+  justify-content: left;
+  font-size: 18px;
+}
+
+.citylabelerror {
+  grid-area: citylabelerror;
+}
+
+.cityinput {
+  grid-area: cityinput;
+  display: flex;
+  align-items: flex-end;
+}
+
+.stateinput {
+  grid-area: stateinput;
+}
+
+.statelabel {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas: 'label';
+  grid-area: statelabel;
+}
+
+.label {
+  font-size: 18px;
+  margin-bottom: -15px;
+  grid-area: label;
+  display: flex;
+  justify-content: left;
+}
+
+.statelabelerror {
+  grid-area: statelabelerror;
+}
+
+.cityinputfield {
+  margin-left: -10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 90%;
+  font-size: 16px;
+  background-color: #e1f0ff;
+}
+
+.stateinputfield {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 95.5%;
+  font-size: 16px;
+  background-color: #e1f0ff;
+}
+
+.comma {
+  grid-area: 'cityinput';
+  margin-left: 3px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.descriptionfield {
+  flex: 1;
+  margin-right: 10px;
+  text-align: left;
+  font-size: 18px;
+  font-weight: bold;
+}
+.descriptionfield1 {
+  flex: 1;
+  margin-right: 10px;
+  text-align: left;
+  font-size: 18px;
+  margin-top: -10px;
+}
+.descriptionheader {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: -10px;
+}
+
+.inputfielddesc {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  height: 100px;
+  font-size: 16px;
+  background-color: #e1f0ff;
+  resize: vertical;
+  overflow-y: auto;
+}
+
+.inputfielddesc::placeholder {
+  text-align: left;
+  vertical-align: top;
+  padding-top: 10px;
+}
+
+#descfielderror {
+  border-bottom: 2px solid black;
+}
+
+.nameheader {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: -10px;
+  min-width: 102%;
+}
+
+.namefield {
+  flex: 1;
+  margin-right: 10px;
+  text-align: left;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.namefield1 {
+  margin-right: 10px;
+  text-align: left;
+  font-size: 18px;
+  margin-top: -10px;
+}
+
+#nameerror {
+  min-width: 102%;
+  padding-bottom: 4px;
+  border-bottom: 2px solid black;
+}
+
+.priceheader {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: -10px;
+  min-width: 102%;
+}
+
+.pricefield {
+  flex: 1;
+  margin-right: 10px;
+  text-align: left;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.pricefield1 {
+  margin-right: 10px;
+  text-align: left;
+  font-size: 18px;
+  margin-top: -10px;
+}
+
+#pricefielderror {
+  min-width: 102%;
+  padding-bottom: 4px;
+  border-bottom: 2px solid black;
+}
+
+.imageheader {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: -10px;
+  min-width: 102%;
+}
+
+.imagefield {
+  flex: 1;
+  margin-right: 10px;
+  text-align: left;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.imagefield1 {
+  margin-right: 10px;
+  text-align: left;
+  font-size: 18px;
+  margin-top: -10px;
+}
+
+#previewfielderror {
+  min-width: 102%;
+  margin-top: -10px;
+  padding-bottom: 4px;
+  margin-left: -1px;
+}
+
+#preview1fielderror {
+  min-width: 102%;
+  margin-top: -10px;
+  padding-bottom: 4px;
+  margin-left: -1px;
+}
+
+#imagefielderror {
+  min-width: 102%;
+  padding-bottom: 4px;
+}
