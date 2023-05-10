@@ -155,7 +155,7 @@
   justify-content: center;
 }
 .button-to-reserve {
-  background-color: orange;
+  background-color: orangered;
   color: white;
   box-shadow: 4px 4px rgba(0, 0, 0, 0.4);
   font-weight: bold;
@@ -196,4 +196,25 @@
 
 .review p {
   margin-top: 1px;
+}
+
+.post-reviews-button {
+  margin-top: 10px;
+  background-color: orangered;
+  color: white;
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 10px 20px;
+  border: 3px solid black;
+  width: 15%;
+  margin-bottom: 20px;
+}
+
+.post-reviews-button:hover {
+  cursor: pointer;
+}
+
+.post-reviews-button li {
+  margin-right: 25px;
 }

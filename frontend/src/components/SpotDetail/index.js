@@ -7,6 +7,8 @@ import { getReviewsBySpotId } from '../../store/review';
 import { clearReviews } from '../../store/review';
 import { clearOwner, getOwnerBySpotId } from '../../store/owner';
 import { getOneSpot, clearCurrent } from '../../store/spot';
+import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+import PostReviewModal from '../PostReviewModal';
 
 function SpotDetail() {
   const dispatch = useDispatch();
@@ -122,6 +124,12 @@ function SpotDetail() {
                   }`
                 : 'NEW'}
             </div>
+            <button className="post-reviews-button">
+              <OpenModalMenuItem
+                itemText="Post A Review"
+                modalComponent={<PostReviewModal spotId={spot.id} />}
+              />
+            </button>
             {reviews &&
               reviews.map((review) => {
                 const formattedDate = new Intl.DateTimeFormat('en-US', {

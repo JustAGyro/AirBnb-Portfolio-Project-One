@@ -4,6 +4,7 @@ import { csrfFetch } from './csrf';
 
 const LOAD_REVIEWS = 'reviews/loadReviews';
 const CLEAR_REVIEWS = 'reviews/CLEAR_REVIEWS';
+const CREATE_REVIEW = 'reviews/CREATE_REVIEW';
 
 const loadReviews = (reviews) => ({
   type: LOAD_REVIEWS,
@@ -12,6 +13,11 @@ const loadReviews = (reviews) => ({
 
 export const clearReviews = () => ({
   type: CLEAR_REVIEWS,
+});
+
+const createReview = (review) => ({
+  type: CREATE_REVIEW,
+  review,
 });
 
 export const getReviewsBySpotId = (spotId) => async (dispatch) => {
@@ -23,6 +29,18 @@ export const getReviewsBySpotId = (spotId) => async (dispatch) => {
     }
   } catch (err) {
     console.error(err);
+  }
+};
+
+export const createAReview = (data, spotId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+
+  if (res.ok) {
+    const newReview = await res.json();
+    dispatch(createReview(newReview));
   }
 };
 
@@ -39,6 +57,20 @@ const reviewsReducer = (state = initialState, action) => {
     }
     case CLEAR_REVIEWS: {
       return {};
+    }
+    case CREATE_REVIEW: {
+      if (!state[action.review.id]) {
+        const newState = {
+          ...state,
+          [action.review.id]: action.review,
+        };
+
+        return newState;
+      }
+      return {
+        ...state,
+        [action.review.id]: action.review,
+      };
     }
     default:
       return state;
