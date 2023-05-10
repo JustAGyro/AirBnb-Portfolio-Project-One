@@ -218,3 +218,23 @@
 .post-reviews-button li {
   margin-right: 25px;
 }
+
+.delete-review-button {
+  margin-top: 10px;
+  background-color: orangered;
+  color: white;
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  font-size: 1.2em;
+  border: 3px solid black;
+  width: 5%;
+  margin-bottom: 20px;
+}
+
+.delete-review-button:hover {
+  cursor: pointer;
+}
+
+.delete-review-button li {
+  margin-right: -3px;
+}

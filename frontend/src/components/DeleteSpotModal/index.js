@@ -25,10 +25,10 @@ function DeleteSpotModal({ spotId }) {
         <h2>Are you sure you want to remove this spot from the listings?</h2>
         <div className="confirm-container">
           <button className="buttonboi" onClick={handleDeleteSpot}>
-            Yes
+            Yes (Delete Spot)
           </button>
           <button className="buttonboi-no" onClick={handleNoButton}>
-            No
+            No (Keep Spot)
           </button>
         </div>
       </div>

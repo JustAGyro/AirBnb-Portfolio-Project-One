@@ -9,6 +9,7 @@ import { clearOwner, getOwnerBySpotId } from '../../store/owner';
 import { getOneSpot, clearCurrent } from '../../store/spot';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import PostReviewModal from '../PostReviewModal';
+import DeleteReviewModal from '../DeleteReviewModal';
 
 function SpotDetail() {
   const dispatch = useDispatch();
@@ -177,7 +178,14 @@ function SpotDetail() {
                     <h3>{formattedDate}</h3>
                     <p>{review.review}</p>
                     {showDelete && review.userId === currentUser.id ? (
-                      <button>Delete</button>
+                      <button className="delete-review-button">
+                        <OpenModalMenuItem
+                          itemText="Delete"
+                          modalComponent={
+                            <DeleteReviewModal reviewId={review.id} />
+                          }
+                        />
+                      </button>
                     ) : (
                       ''
                     )}
