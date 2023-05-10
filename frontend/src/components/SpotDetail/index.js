@@ -24,16 +24,20 @@ function SpotDetail() {
     };
   }, [dispatch, spotId]);
 
-  console.log(spotId);
-
   const spot = useSelector((state) => state.spots[spotId]); // populate from Redux store
-
-  console.log('WHY ARE WE COMING BACK UNDEFINED??????');
-  console.log(spot);
-  console.log('WHY ARE WE COMING BACK UNDEFINED??????');
   const reviews = useSelector((state) => Object.values(state.reviews)); // retrieve reviews from Redux store
   const spotOwner = useSelector((state) => Object.values(state.owner));
   const actualOwner = spotOwner[0];
+
+  let avgRating = 0;
+  let sum = 0;
+
+  //Get average rating
+  for (let i = 0; i < reviews.length; i++) {
+    const review = reviews[i];
+    sum = sum + Number(review.stars);
+    avgRating = sum / reviews.length;
+  }
 
   return (
     <div className="spot-container">
@@ -91,10 +95,10 @@ function SpotDetail() {
                   </div>
                   <div class="ratings-display">
                     <i className="fa fa-star"></i>
-                    {spot.average_rating
-                      ? `${spot.average_rating.toFixed(1)} · ${
-                          reviewNumber.length
-                        } ${reviewNumber.length === 1 ? 'Review' : 'Reviews'}`
+                    {reviews.length > 0
+                      ? `${avgRating.toFixed(1)} · ${reviews.length} ${
+                          reviews.length === 1 ? 'Review' : 'Reviews'
+                        }`
                       : 'NEW'}
                   </div>
                 </div>
@@ -112,9 +116,9 @@ function SpotDetail() {
           <div className="actual-reviews-container">
             <div class="actual-ratings-display">
               <i className="fa fa-star"></i>
-              {spot.average_rating
-                ? `${spot.average_rating.toFixed(1)} · ${reviewNumber.length} ${
-                    reviewNumber.length === 1 ? 'Review' : 'Reviews'
+              {reviews.length > 0
+                ? `${avgRating.toFixed(1)} · ${reviews.length} ${
+                    reviews.length === 1 ? 'Review' : 'Reviews'
                   }`
                 : 'NEW'}
             </div>

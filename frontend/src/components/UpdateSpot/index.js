@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createASpot } from '../../store/spot';
 import { Redirect, useHistory } from 'react-router-dom';
-import { createAnImage } from '../../store/spot';
-import { getOneSpot, clearCurrent } from '../../store/spot';
+import { getOneSpot, updateASpot } from '../../store/spot';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './UpdateSpot.css';
@@ -13,12 +12,11 @@ const UpdateSpot = () => {
   const history = useHistory();
   const { spotId } = useParams();
   let hasErrors = false;
+  const spot = useSelector((state) => state.spots[spotId]); // populate from Redux store
 
   useEffect(() => {
     dispatch(getOneSpot(spotId));
   }, [dispatch, spotId]);
-
-  const spot = useSelector((state) => state.spots[spotId]); // populate from Redux store
 
   //State for fields
   const [country, setCountry] = useState(spot.country);
@@ -115,7 +113,7 @@ const UpdateSpot = () => {
     }
 
     //Name error
-    if (price.trim() === '') {
+    if (price === '') {
       setPriceError('Price is required');
       hasErrors = true;
     }
@@ -137,150 +135,154 @@ const UpdateSpot = () => {
       price: priceToNumber,
     };
 
-    let createdSpot;
-    createdSpot = await dispatch(createASpot(payload));
+    console.log(payload);
 
-    let newSpotId = createdSpot.id;
+    const spotId = spot.id;
 
-    if (createdSpot) {
-      history.push(`/api/spots/${createdSpot.id}`);
-    }
+    let updatedSpot;
+    updatedSpot = await dispatch(updateASpot(spotId, payload));
+
+    history.push(`/api/spots/${spot.id}`);
   };
 
   return (
-    <section className="new-form-holder">
+    <div>
       {spot && (
         <>
-          <div className="form-header">
-            <p className="formheadertext1">Update your Spot</p>
-            <p className="formheadertext">Where's your place located?</p>
-            <p className="formheadertext">
-              Guests will only get your exact address once they booked a
-              reservation.
-            </p>
-          </div>
-          <form className="create-spot-form" onSubmit={handleSubmit}>
-            <p className="fieldname">
-              Country
-              {countryError && <span className="error"> {countryError}</span>}
-            </p>
-            <input
-              className="inputfield"
-              type="text"
-              placeholder="Country"
-              value={country}
-              onChange={updateCountry}
-            />
-            <p className="fieldname">
-              Address
-              {addressError && <span className="error"> {addressError}</span>}
-            </p>
-            <input
-              className="inputfield"
-              type="text"
-              placeholder="Street Address"
-              value={address}
-              onChange={updateAddress}
-            />
-            <div class="citystatefields">
-              <div class="citylabel">
-                <div class="labelcity">
-                  <p className="fieldname">
-                    City
-                    {cityError && <span className="error"> {cityError}</span>}
-                  </p>
-                </div>
-              </div>
-              <div class="cityinput">
-                <input
-                  className="cityinputfield"
-                  type="text"
-                  placeholder="City"
-                  value={city}
-                  onChange={updateCity}
-                />
-                <span class="comma">,</span>
-              </div>
-              <div class="stateinput">
-                <input
-                  className="stateinputfield"
-                  type="text"
-                  placeholder="State"
-                  value={state}
-                  onChange={updateState}
-                />
-              </div>
-              <div class="statelabel">
-                <div class="label">
-                  <p className="fieldname">
-                    State
-                    {stateError && <span className="error"> {stateError}</span>}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="descriptionheader">
-              <p className="descriptionfield">Descibe your place to guests</p>
-              <p className="descriptionfield1">
-                Mention the best features of your space, any special amenities
-                like fast wifi or parking, and what you love about the
-                neighborhood.
+          <section className="new-form-holder">
+            <div className="form-header">
+              <p className="formheadertext1">Update your Spot</p>
+              <p className="formheadertext">Where's your place located?</p>
+              <p className="formheadertext">
+                Guests will only get your exact address once they booked a
+                reservation.
               </p>
             </div>
-            <textarea
-              className="inputfielddesc"
-              placeholder="Description"
-              value={description}
-              onChange={updateDescription}
-            />
-            <p id="descfielderror" className="fieldname">
-              {descriptionError && (
-                <span className="error"> {descriptionError}</span>
+            <form className="create-spot-form" onSubmit={handleSubmit}>
+              <p className="fieldname">
+                Country
+                {countryError && <span className="error"> {countryError}</span>}
+              </p>
+              <input
+                className="inputfield"
+                type="text"
+                placeholder="Country"
+                value={country}
+                onChange={updateCountry}
+              />
+              <p className="fieldname">
+                Address
+                {addressError && <span className="error"> {addressError}</span>}
+              </p>
+              <input
+                className="inputfield"
+                type="text"
+                placeholder="Street Address"
+                value={address}
+                onChange={updateAddress}
+              />
+              <div class="citystatefields">
+                <div class="citylabel">
+                  <div class="labelcity">
+                    <p className="fieldname">
+                      City
+                      {cityError && <span className="error"> {cityError}</span>}
+                    </p>
+                  </div>
+                </div>
+                <div class="cityinput">
+                  <input
+                    className="cityinputfield"
+                    type="text"
+                    placeholder="City"
+                    value={city}
+                    onChange={updateCity}
+                  />
+                  <span class="comma">,</span>
+                </div>
+                <div class="stateinput">
+                  <input
+                    className="stateinputfield"
+                    type="text"
+                    placeholder="State"
+                    value={state}
+                    onChange={updateState}
+                  />
+                </div>
+                <div class="statelabel">
+                  <div class="label">
+                    <p className="fieldname">
+                      State
+                      {stateError && (
+                        <span className="error"> {stateError}</span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="descriptionheader">
+                <p className="descriptionfield">Descibe your place to guests</p>
+                <p className="descriptionfield1">
+                  Mention the best features of your space, any special amenities
+                  like fast wifi or parking, and what you love about the
+                  neighborhood.
+                </p>
+              </div>
+              <textarea
+                className="inputfielddesc"
+                placeholder="Description"
+                value={description}
+                onChange={updateDescription}
+              />
+              <p id="descfielderror" className="fieldname">
+                {descriptionError && (
+                  <span className="error"> {descriptionError}</span>
+                )}
+              </p>
+              <div className="nameheader">
+                <p className="namefield">Create a title for your spot</p>
+                <p className="namefield1">
+                  Catch guests' attention with a spot title that highlights what
+                  makes your place special.
+                </p>
+              </div>
+              <input
+                className="inputfield"
+                type="text"
+                placeholder="Name of your spot"
+                value={name}
+                onChange={updateName}
+              />
+              {nameError && (
+                <p id="nameerror" className="error">
+                  {nameError}
+                </p>
               )}
-            </p>
-            <div className="nameheader">
-              <p className="namefield">Create a title for your spot</p>
-              <p className="namefield1">
-                Catch guests' attention with a spot title that highlights what
-                makes your place special.
+              <div className="priceheader">
+                <p className="pricefield">Set a base price for your spot</p>
+                <p className="pricefield1">
+                  Competitive pricing can help your listing stand out and rank
+                  higher in search results.
+                </p>
+              </div>
+              <input
+                className="inputfield"
+                type="text"
+                placeholder="Price per night (USD)"
+                value={price}
+                onChange={updatePrice}
+              />
+              <p id="pricefielderror" className="fieldname">
+                {priceError && <span className="error">{priceError}</span>}
               </p>
-            </div>
-            <input
-              className="inputfield"
-              type="text"
-              placeholder="Name of your spot"
-              value={name}
-              onChange={updateName}
-            />
-            {nameError && (
-              <p id="nameerror" className="error">
-                {nameError}
-              </p>
-            )}
-            <div className="priceheader">
-              <p className="pricefield">Set a base price for your spot</p>
-              <p className="pricefield1">
-                Competitive pricing can help your listing stand out and rank
-                higher in search results.
-              </p>
-            </div>
-            <input
-              className="inputfield"
-              type="text"
-              placeholder="Price per night (USD)"
-              value={price}
-              onChange={updatePrice}
-            />
-            <p id="pricefielderror" className="fieldname">
-              {priceError && <span className="error">{priceError}</span>}
-            </p>
-            <button className="submitspotbutton" type="submit">
-              Update Spot
-            </button>
-          </form>
+              <button className="submitspotbutton" type="submit">
+                Update Spot
+              </button>
+            </form>
+          </section>
         </>
       )}
-    </section>
+    </div>
   );
 };
 

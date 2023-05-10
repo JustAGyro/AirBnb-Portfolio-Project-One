@@ -7,6 +7,7 @@ const LOAD_CURRENT = '/spot/LOAD_CURRENT';
 const CLEAR_CURRENT = '/spot/CLEAR_CURRENT';
 const DELETE_SPOT = '/spot/DELETE_SPOT';
 const LOAD_ONE = '/spot/LOAD_ONE';
+const UPDATE_SPOT = '/spot/UPDATE_SPOT';
 
 const load = (list) => ({
   type: LOAD,
@@ -40,6 +41,11 @@ const deleteSpot = (id) => ({
 
 const loadOne = (spot) => ({
   type: LOAD_ONE,
+  spot,
+});
+
+const updateSpot = (spot) => ({
+  type: UPDATE_SPOT,
   spot,
 });
 
@@ -119,6 +125,21 @@ export const getOneSpot = (spotId) => async (dispatch) => {
   }
 };
 
+export const updateASpot = (spotId, data) => async (dispatch) => {
+  const token = Cookies.get('XSRF-TOKEN');
+  const response = await fetch(`/api/spots/${spotId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': token,
+    },
+    body: JSON.stringify(data),
+  });
+  if (response.ok) {
+    dispatch(updateSpot(spotId));
+  }
+};
+
 const initialState = {};
 
 const spotReducer = (state = initialState, action) => {
@@ -165,6 +186,11 @@ const spotReducer = (state = initialState, action) => {
     case LOAD_ONE:
       const oneSpot = { [action.spot.id]: action.spot };
       return oneSpot;
+    case UPDATE_SPOT:
+      return {
+        ...state,
+        [action.spot.id]: action.spot,
+      };
     default:
       return state;
   }

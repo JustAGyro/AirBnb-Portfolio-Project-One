@@ -13,10 +13,6 @@ function SpotCurrentUser() {
 
   useEffect(() => {
     dispatch(getCurrentSpots());
-
-    return () => {
-      dispatch(clearCurrent());
-    };
   }, [dispatch]);
 
   const handleDeleteSpot = (spotId) => {
