@@ -16,7 +16,7 @@ const UpdateSpot = () => {
 
   useEffect(() => {
     dispatch(getOneSpot(spotId));
-  }, [dispatch, spotId]);
+  }, []);
 
   //State for fields
   const [country, setCountry] = useState(spot.country);
@@ -133,7 +133,6 @@ const UpdateSpot = () => {
       name,
       price: priceToNumber,
     };
-
 
     const spotId = spot.id;
 
