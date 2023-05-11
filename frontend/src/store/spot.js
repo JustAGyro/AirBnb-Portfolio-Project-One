@@ -9,6 +9,8 @@ const DELETE_SPOT = '/spot/DELETE_SPOT';
 const LOAD_ONE = '/spot/LOAD_ONE';
 const UPDATE_SPOT = '/spot/UPDATE_SPOT';
 
+const timestamp = Date.now();
+
 const load = (list) => ({
   type: LOAD,
   list,
@@ -50,7 +52,7 @@ const updateSpot = (spot) => ({
 });
 
 export const getSpots = () => async (dispatch) => {
-  const response = await fetch('/api/spots');
+  const response = await fetch(`/api/spots?timestamp=${timestamp}`);
   if (response.ok) {
     const list = await response.json();
     dispatch(load(list));
@@ -59,7 +61,7 @@ export const getSpots = () => async (dispatch) => {
 
 export const createASpot = (data) => async (dispatch) => {
   const token = Cookies.get('XSRF-TOKEN');
-  const response = await fetch('/api/spots/', {
+  const response = await fetch(`/api/spots?timestamp=${timestamp}`, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
@@ -77,11 +79,14 @@ export const createASpot = (data) => async (dispatch) => {
 
 export const createAnImage = (data, spotId) => async (dispatch) => {
   const token = Cookies.get('XSRF-TOKEN');
-  const response = await fetch(`/api/spots/${spotId}/images`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': token },
-    body: JSON.stringify(data),
-  });
+  const response = await fetch(
+    `/api/spots/${spotId}/images?timestamp=${timestamp}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': token },
+      body: JSON.stringify(data),
+    }
+  );
 
   if (response.ok) {
     const image = await response.json();
@@ -92,7 +97,7 @@ export const createAnImage = (data, spotId) => async (dispatch) => {
 };
 
 export const getCurrentSpots = () => async (dispatch) => {
-  const response = await fetch('/api/spots/current');
+  const response = await fetch(`/api/spots/current?timestamp=${timestamp}`);
   if (response.ok) {
     const spots = await response.json();
     dispatch(loadCurrent(spots));
@@ -101,7 +106,7 @@ export const getCurrentSpots = () => async (dispatch) => {
 
 export const deleteASpot = (id) => async (dispatch) => {
   const token = Cookies.get('XSRF-TOKEN');
-  const response = await fetch(`/api/spots/${id}`, {
+  const response = await fetch(`/api/spots/${id}?timestamp=${timestamp}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
