@@ -12,12 +12,12 @@ import { NavLink } from 'react-router-dom';
 
 function SpotCurrentUser() {
   const dispatch = useDispatch();
-  const spots = useSelector((state) => Object.values(state.spots).reverse());
 
   useEffect(() => {
     dispatch(getCurrentSpots());
-  }, [dispatch]);
+  }, []);
 
+  const spots = useSelector((state) => Object.values(state.spots).reverse());
   return (
     <div>
       {spots && (

@@ -25,7 +25,7 @@ function SpotDetail() {
       dispatch(clearOwner());
       dispatch(clearCurrent());
     };
-  }, [dispatch, spotId]);
+  }, []);
 
   const spot = useSelector((state) => state.spots[spotId]); // populate from Redux store
   const reviews = useSelector((state) => Object.values(state.reviews)); // retrieve reviews from Redux store
