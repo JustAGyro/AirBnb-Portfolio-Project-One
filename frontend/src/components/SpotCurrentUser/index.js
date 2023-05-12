@@ -17,7 +17,24 @@ function SpotCurrentUser() {
     dispatch(getCurrentSpots());
   }, []);
 
-  const spots = useSelector((state) => Object.values(state.spots).reverse());
+  const spotsArray = useSelector((state) =>
+    Object.values(state.spots).reverse()
+  );
+  const owner = useSelector((state) => state.session.user.id);
+  console.log('----------------Debug zone---------------');
+  console.log('user: ', owner);
+  console.log(spotsArray);
+  console.log('----------------Debug zone---------------');
+
+  let spots = [];
+
+  for (let i = 0; i < spotsArray.length; i++) {
+    let spot = spotsArray[i];
+    if (spot.ownerId === owner) {
+      spots.push(spot);
+    }
+  }
+
   return (
     <div>
       {spots && (
