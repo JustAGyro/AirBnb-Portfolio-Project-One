@@ -145,13 +145,19 @@ export const updateASpot = (spotId, data) => async (dispatch) => {
 const initialState = {};
 
 const spotReducer = (state = initialState, action) => {
+  let newState = {};
+
   switch (action.type) {
     case LOAD:
+      newState = { ...state };
       const allSpots = {};
       action.list.forEach((spots) => {
         allSpots[spots.id] = spots;
       });
-      return { ...allSpots, ...state };
+      newState = { ...allSpots, ...state };
+
+      return newState;
+
     case CREATE_SPOT:
       if (!state[action.spot.id]) {
         const newState = {
@@ -164,6 +170,7 @@ const spotReducer = (state = initialState, action) => {
         ...state,
         [action.spot.id]: action.spot,
       };
+
     case CREATE_IMAGE:
       const updatedSpot = {
         ...state[action.spot.id],
@@ -173,26 +180,30 @@ const spotReducer = (state = initialState, action) => {
         ...state,
         [action.spot.id]: updatedSpot,
       };
+
     case LOAD_CURRENT:
       const allCurrentSpots = {};
+      newState = { ...state };
       action.spots.forEach((spot) => {
         allCurrentSpots[spot.id] = spot;
       });
-      return { ...allCurrentSpots };
-    case CLEAR_CURRENT: {
-      return {};
-    }
+      newState = { ...state, ...allCurrentSpots };
+      return newState;
+
     case DELETE_SPOT:
       const { [action.id]: deletedSpot, ...remainingSpots } = state;
       return remainingSpots;
+
     case LOAD_ONE:
-      const oneSpot = { [action.spot.id]: action.spot };
-      return oneSpot;
+      newState = { [action.spot.id]: action.spot, ...state };
+      return newState;
+
     case UPDATE_SPOT:
       return {
         ...state,
         [action.spot.id]: action.spot,
       };
+
     default:
       return state;
   }

@@ -63,6 +63,7 @@ export const deleteAReview = (id) => async (dispatch) => {
 const initialState = {};
 
 const reviewsReducer = (state = initialState, action) => {
+  let newState = {};
   switch (action.type) {
     case LOAD_REVIEWS: {
       const spotReviews = {};
@@ -71,9 +72,7 @@ const reviewsReducer = (state = initialState, action) => {
       });
       return { ...state, ...spotReviews };
     }
-    case CLEAR_REVIEWS: {
-      return {};
-    }
+
     case CREATE_REVIEW: {
       if (!state[action.review.id]) {
         const newState = {
@@ -88,10 +87,12 @@ const reviewsReducer = (state = initialState, action) => {
         [action.review.id]: action.review,
       };
     }
+
     case DELETE_REVIEW: {
       const { [action.id]: deletedReview, ...remainingReviews } = state;
       return remainingReviews;
     }
+
     default:
       return state;
   }

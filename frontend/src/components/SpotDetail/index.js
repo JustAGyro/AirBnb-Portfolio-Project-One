@@ -21,20 +21,34 @@ function SpotDetail() {
     dispatch(getOwnerBySpotId(spotId));
     dispatch(getOneSpot(spotId));
     return () => {
-      dispatch(clearReviews());
-      dispatch(clearOwner());
-      dispatch(clearCurrent());
+      // dispatch(clearReviews());
+      // dispatch(clearOwner());
+      // dispatch(clearCurrent());
     };
   }, []);
 
   const spot = useSelector((state) => state.spots[spotId]); // populate from Redux store
-  const reviews = useSelector((state) => Object.values(state.reviews)); // retrieve reviews from Redux store
+  const reviewsArray = useSelector((state) => Object.values(state.reviews)); // retrieve reviews from Redux store
   const spotOwner = useSelector((state) => Object.values(state.owner));
   const currentUser = useSelector((state) => state.session.user);
   const actualOwner = spotOwner[0];
 
   let avgRating = 0;
   let sum = 0;
+
+  let reviews = [];
+  //Get reviews
+  for (let i = 0; i < reviewsArray.length; i++) {
+    const review = reviewsArray[i];
+    console.log('from review array: ', review.spotId);
+    console.log('from usParams: ', spotId);
+    if (review.spotId == spotId) {
+      reviews.push(review);
+    }
+  }
+
+  console.log('-----------------------for loop has run---------------------');
+  console.log(reviews);
 
   //Get average rating
   for (let i = 0; i < reviews.length; i++) {
