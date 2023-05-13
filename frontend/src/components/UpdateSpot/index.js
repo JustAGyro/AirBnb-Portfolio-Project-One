@@ -19,13 +19,13 @@ const UpdateSpot = () => {
   }, []);
 
   //State for fields
-  const [country, setCountry] = useState(spot.country);
-  const [address, setAddress] = useState(spot.address);
-  const [city, setCity] = useState(spot.city);
-  const [state, setState] = useState(spot.state);
-  const [description, setDescription] = useState(spot.description);
-  const [name, setName] = useState(spot.name);
-  const [price, setPrice] = useState(spot.price);
+  const [country, setCountry] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [description, setDescription] = useState('');
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
 
   //State for errors
   const [countryError, setCountryError] = useState('');
