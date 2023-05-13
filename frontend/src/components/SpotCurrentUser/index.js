@@ -4,8 +4,6 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { getCurrentSpots } from '../../store/spot';
 import './SpotCurrentUser.css';
-import { clearCurrent } from '../../store/spot';
-import { deleteASpot } from '../../store/spot';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteSpotModal from '../DeleteSpotModal';
 import { NavLink } from 'react-router-dom';
