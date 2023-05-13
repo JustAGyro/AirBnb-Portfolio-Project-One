@@ -60,14 +60,16 @@ function SpotCurrentUser() {
                   {spot.city}, {spot.state}
                 </div>
               </div>
-              <div className="current-average-rating">
-                <i id="star-icon" className="fa fa-star"></i>
-                <div className="current-spot-card-stars">
-                  {spot.average_rating !== null
-                    ? spot.average_rating.toFixed(2)
-                    : 'NEW'}
+              {spot.average_rating && (
+                <div className="current-average-rating">
+                  <i id="star-icon" className="fa fa-star"></i>
+                  <div className="current-spot-card-stars">
+                    {spot.average_rating !== null
+                      ? spot.average_rating.toFixed(2)
+                      : 'NEW'}
+                  </div>
                 </div>
-              </div>
+              )}
               <div className="current-spot-card-price">${spot.price} night</div>
             </div>
           </Link>
