@@ -40,15 +40,10 @@ function SpotDetail() {
   //Get reviews
   for (let i = 0; i < reviewsArray.length; i++) {
     const review = reviewsArray[i];
-    console.log('from review array: ', review.spotId);
-    console.log('from usParams: ', spotId);
     if (review.spotId == spotId) {
       reviews.push(review);
     }
   }
-
-  console.log('-----------------------for loop has run---------------------');
-  console.log(reviews);
 
   //Get average rating
   for (let i = 0; i < reviews.length; i++) {
@@ -79,20 +74,20 @@ function SpotDetail() {
             {spot.city}, {spot.state}, {spot.country}
           </p>
           <div className="spot-images-container">
-            {spot.SpotImages && (
+            {spot.previewImage && (
               <>
                 <div className="images">
                   <img
                     className="first"
                     src={
-                      spot.SpotImages && spot.SpotImages
-                        ? spot.SpotImages[0].url
+                      spot.previewImage && spot.previewImage
+                        ? spot.previewImage[0][0].url
                         : 'https://media.makeameme.org/created/file-not-found-c17b083c9c.jpg'
                     }
                     alt="Spot Preview"
                   />
                   <div className="images-rest">
-                    {spot.SpotImages.slice(1).map((image, index) => (
+                    {spot.previewImage[0].slice(1).map((image, index) => (
                       <img
                         className="restofimages"
                         key={index}
