@@ -64,9 +64,7 @@ function SpotCurrentUser() {
                 <div className="current-average-rating">
                   <i id="star-icon" className="fa fa-star"></i>
                   <div className="current-spot-card-stars">
-                    {spot.average_rating !== null
-                      ? spot.average_rating.toFixed(2)
-                      : 'NEW'}
+                    {spot.average_rating !== null ? spot.average_rating : 'NEW'}
                   </div>
                 </div>
               )}
