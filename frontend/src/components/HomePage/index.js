@@ -13,6 +13,21 @@ function HomePage() {
     dispatch(getSpots());
   }, [dispatch]);
 
+  console.log(spots);
+  //Get average rating to not suck -_-
+  for (let i = 0; i < spots.length; i++) {
+    let spot = spots[i];
+    if (spot.average_rating === null) {
+      spot.average_rating = 0;
+    }
+    if (isNaN(spot.average_rating)) {
+      spot.average_rating = 0;
+    }
+    let avgRating = Number(spot.average_rating);
+    let cuteAvgRating = avgRating.toFixed(1);
+    spot.average_rating = cuteAvgRating;
+  }
+
   return (
     <div className="spots-container">
       {spots.map((spot) => (
@@ -36,7 +51,7 @@ function HomePage() {
               <div className="average-rating">
                 <i className="fa fa-star"></i>
                 <div className="spot-card-stars">
-                  {spot.average_rating ? spot.average_rating.toFixed(2) : 'NEW'}
+                  {spot.average_rating == 0.0 ? 'NEW' : spot.average_rating}
                 </div>
               </div>
               <div className="spot-card-price">${spot.price} night</div>
