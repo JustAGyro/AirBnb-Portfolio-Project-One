@@ -26,16 +26,16 @@ function App() {
           <Route exact path="/">
             <HomePage />
           </Route>
-          <Route path="/spots/new">
+          <Route exact path="/spots/new">
             <CreateSpotForm />
           </Route>
-          <Route path="/spots/current">
+          <Route exact path="/spots/current">
             <SpotCurrentUser />
           </Route>
           <Route exact path="/spots/:spotId/edit">
             <UpdateSpot />
           </Route>
-          <Route path="/spots/:spotId">
+          <Route exact path="/spots/:spotId">
             <SpotDetail />
           </Route>
         </Switch>
