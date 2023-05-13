@@ -139,7 +139,7 @@ const UpdateSpot = () => {
     let updatedSpot;
     updatedSpot = await dispatch(updateASpot(spotId, payload));
 
-    history.push(`/api/spots/${spot.id}`);
+    history.push(`/spots/${spot.id}`);
   };
 
   return (

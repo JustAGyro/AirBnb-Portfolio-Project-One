@@ -16,7 +16,7 @@ function HomePage() {
   return (
     <div className="spots-container">
       {spots.map((spot) => (
-        <Link to={`/api/spots/${spot.id}`} title={spot.name}>
+        <Link to={`/spots/${spot.id}`} title={spot.name}>
           <div key={spot.id} className="spot-card">
             <img
               src={
