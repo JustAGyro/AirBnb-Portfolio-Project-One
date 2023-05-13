@@ -52,7 +52,7 @@ const updateSpot = (spot) => ({
 });
 
 export const getSpots = () => async (dispatch) => {
-  const response = await fetch(`/api/spots?timestamp=${timestamp}`);
+  const response = await fetch(`/api/spots`);
   if (response.ok) {
     const list = await response.json();
     dispatch(load(list));
@@ -61,7 +61,7 @@ export const getSpots = () => async (dispatch) => {
 
 export const createASpot = (data) => async (dispatch) => {
   const token = Cookies.get('XSRF-TOKEN');
-  const response = await fetch(`/api/spots?timestamp=${timestamp}`, {
+  const response = await fetch(`/api/spots`, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
@@ -79,14 +79,11 @@ export const createASpot = (data) => async (dispatch) => {
 
 export const createAnImage = (data, spotId) => async (dispatch) => {
   const token = Cookies.get('XSRF-TOKEN');
-  const response = await fetch(
-    `/api/spots/${spotId}/images?timestamp=${timestamp}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': token },
-      body: JSON.stringify(data),
-    }
-  );
+  const response = await fetch(`/api/spots/${spotId}/images`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': token },
+    body: JSON.stringify(data),
+  });
 
   if (response.ok) {
     const image = await response.json();
@@ -97,16 +94,17 @@ export const createAnImage = (data, spotId) => async (dispatch) => {
 };
 
 export const getCurrentSpots = () => async (dispatch) => {
-  const response = await fetch(`/api/spots/current?timestamp=${timestamp}`);
+  const response = await fetch(`/api/spots/current`);
   if (response.ok) {
     const spots = await response.json();
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~This means resposne is okay');
     dispatch(loadCurrent(spots));
   }
 };
 
 export const deleteASpot = (id) => async (dispatch) => {
   const token = Cookies.get('XSRF-TOKEN');
-  const response = await fetch(`/api/spots/${id}?timestamp=${timestamp}`, {
+  const response = await fetch(`/api/spots/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
