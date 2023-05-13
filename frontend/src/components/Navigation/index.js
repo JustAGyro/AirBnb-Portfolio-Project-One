@@ -20,7 +20,7 @@ function Navigation({ isLoaded }) {
         <>
           {sessionUser && (
             <li>
-              <NavLink exact to="/api/spots/new" className="create-spot-btn">
+              <NavLink exact to="/spots/new" className="create-spot-btn">
                 Create a New Spot
               </NavLink>
             </li>

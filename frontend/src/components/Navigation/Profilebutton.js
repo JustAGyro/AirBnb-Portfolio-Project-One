@@ -69,7 +69,7 @@ function ProfileButton({ user }) {
                   >
                     {user.email}
                   </li>
-                  <NavLink exact to="/api/spots/current">
+                  <NavLink exact to="/spots/current">
                     <li
                       style={{ fontSize: '1.2rem', margin: '0', padding: '0' }}
                     >

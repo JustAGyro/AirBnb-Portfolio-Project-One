@@ -12,19 +12,14 @@ import { NavLink } from 'react-router-dom';
 
 function SpotCurrentUser() {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getCurrentSpots());
-  }, []);
-
   const spotsArray = useSelector((state) =>
     Object.values(state.spots).reverse()
   );
   const owner = useSelector((state) => state.session.user.id);
-  console.log('----------------Debug zone---------------');
-  console.log('user: ', owner);
-  console.log(spotsArray);
-  console.log('----------------Debug zone---------------');
+
+  useEffect(() => {
+    dispatch(getCurrentSpots());
+  }, [dispatch]);
 
   let spots = [];
 
@@ -42,7 +37,7 @@ function SpotCurrentUser() {
           <div className="managespots-container">
             <h1>Manage Spots</h1>
             {spots.length === 0 && (
-              <NavLink exact to="/api/spots/new">
+              <NavLink exact to="/spots/new">
                 <button className="create-spot-button">
                   Create A New Spot
                 </button>
@@ -51,7 +46,7 @@ function SpotCurrentUser() {
           </div>
           {spots.map((spot) => (
             <div key={spot.id} className="current-spot-card">
-              <Link to={`/api/spots/${spot.id}`} title={spot.name}>
+              <Link to={`/spots/${spot.id}`} title={spot.name}>
                 <img
                   src={
                     spot.preview_image
@@ -79,7 +74,7 @@ function SpotCurrentUser() {
                 </div>
               </Link>
               <div className="current-spot-card-buttons">
-                <Link to={`/api/spots/${spot.id}/edit`}>
+                <Link to={`/spots/${spot.id}/edit`}>
                   <button className="current-spot-card-button">Update</button>
                 </Link>
                 <button className="current-spot-card-delete-button">
