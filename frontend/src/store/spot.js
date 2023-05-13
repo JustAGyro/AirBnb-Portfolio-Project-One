@@ -97,6 +97,7 @@ export const getCurrentSpots = () => async (dispatch) => {
   const response = await fetch(`/api/spots/current`);
   if (response.ok) {
     const spots = await response.json();
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~This means resposne is okay');
     dispatch(loadCurrent(spots));
   }
 };
